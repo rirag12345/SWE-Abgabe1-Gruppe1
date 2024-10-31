@@ -13,6 +13,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+# https://jsdev.space/howto/eslint-delete-cr/
+endOfLine: auto
+
 # https://github.com/prettier/prettier/issues/4102
 # https://github.com/prettier/prettier/pull/7466
 singleQuote: true
