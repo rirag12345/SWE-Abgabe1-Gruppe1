@@ -3,10 +3,12 @@
 Version 3, 29 June 2007
 
 Copyright (C) 2016 - present Juergen Zimmermann, Hochschule Karlsruhe
-Copyright (C) 2024 - present Felix Jaeger
 Copyright (C) 2024 - present Philip Neuffer
+Copyright (C) 2024 - present Felix Jaeger
+Copyright (C) 2024 - present Yannis Mechnich
+Copyright (C) 2024 - present Botan Coban
 
-This program is free software: you can redistribute it and/oder modify
+This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
@@ -20,4 +22,5 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 This project is based on work by Juergen Zimmermann and has been
-created and modified by Felix Jaeger and Philip Neuffer in 2024.
+created and modified by Philip Neuffer, Felix Jaeger, Yannis Mechnich
+and Botan Coban in 2024.
