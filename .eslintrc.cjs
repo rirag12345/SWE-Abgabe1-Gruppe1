@@ -106,15 +106,6 @@ module.exports = {
 
     // https://eslint.org/docs/latest/use/configure/rules#using-configuration-files
     rules: {
-
-        // https://jsdev.space/howto/eslint-delete-cr/
-        'prettier/prettier' : [
-            'error',
-            {
-                endOfLine: 'lf',
-            },
-        ],
-
         '@eslint-community/eslint-comments/no-unused-disable': 'error',
 
         // https://github.com/typescript-eslint/typescript-eslint/tree/main/packages/eslint-plugin#supported-rules
