@@ -1,8 +1,21 @@
 {
-  "name": "beispiel",
+  "name": "universitaet",
   "version": "2024.10.1",
-  "description": "Beispiel",
-  "author": "Juergen Zimmermann",
+  "description": "Abgabe 1",
+  "contributors" : [
+    {
+      "name": "Jürgen Zimmermann",
+      "email": "Juergen.Zimmermann@h-ka.de"
+    },
+    {
+      "name": "Felix Jaeger",
+      "email": "placeholder@dummy.net"
+    },
+    {
+      "name": "Philip Neuffer",
+      "email": "neph1015@h-ka.de"
+    }
+  ],
   "private": true,
   "license": "GPL-3.0",
   "exports": "./dist/src/main.js",
@@ -115,6 +128,8 @@
     "@asciidoctor/opal-runtime": "3.0.1",
     "@asciidoctor/reveal.js": "5.1.0",
     "@eslint-community/eslint-plugin-eslint-comments": "4.4.0",
+    "@eslint/eslintrc": "3.1.0",
+    "@eslint/js": "9.12.0",
     "@graphql-eslint/eslint-plugin": "3.20.1",
     "@jest/globals": "29.7.0",
     "@jest/types": "29.6.3",
@@ -152,6 +167,7 @@
     "eslint-plugin-security-node": "1.1.4",
     "eslint-plugin-sonarjs": "0.25.1",
     "eslint-plugin-unicorn": "56.0.0",
+    "globals": "15.11.0",
     "is-port-reachable": "3.1.0",
     "jest": "29.7.0",
     "jest-config": "29.7.0",
