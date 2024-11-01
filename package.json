@@ -1,19 +1,27 @@
 {
   "name": "universitaet",
   "version": "2024.10.1",
-  "description": "Abgabe 1",
+  "description": "SWE - Abgabe 1 - Gruppe 1",
   "contributors" : [
     {
       "name": "Juergen Zimmermann",
       "email": "Juergen.Zimmermann@h-ka.de"
     },
     {
+      "name": "Philip Neuffer",
+      "email": "neph1015@h-ka.de"
+    },
+    {
       "name": "Felix Jaeger",
+      "email": "jafe1011@h-ka.de"
+    },
+    {
+      "name": "Yannis Mechnich",
       "email": "placeholder@dummy.net"
     },
     {
-      "name": "Philip Neuffer",
-      "email": "neph1015@h-ka.de"
+      "name": "Botan Coban",
+      "email": "placeholder@dummy.net"
     }
   ],
   "private": true,
