@@ -36,7 +36,7 @@ export class Bibliothek {
 
     @Column()
     @ApiProperty({ example: 'DE-Mun1', type: String })
-    readonly isil!: string | undefined;
+    readonly isil: string | undefined;
 
     @OneToOne(() => Universitaet, (universitaet) => universitaet.bibliothek)
     @JoinColumn({ name: 'universitaet_id' })

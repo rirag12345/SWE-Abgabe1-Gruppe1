@@ -44,7 +44,7 @@ export class Universitaet {
 
     @Column()
     @ApiProperty({ example: 'Muenchen', type: String })
-    readonly standort!: string;
+    readonly standort: string | undefined;
 
     @Column('int')
     @ApiProperty({ example: 42_000, type: Number })

@@ -30,14 +30,14 @@ export class Kurs {
 
     @Column('date')
     @ApiProperty({ example: '2023-04-01', type: String })
-    readonly startDatum!: Date | string;
+    readonly startDatum: Date | undefined;
 
     @Column('simple-array')
     @ApiProperty({
         example: ['Programmierung', 'Datenstrukturen', 'Algorithmen'],
         type: [String],
     })
-    readonly inhalte!: string[] | null | undefined;
+    readonly inhalte: string[] | null | undefined;
 
     @ManyToOne(() => Universitaet, (universitaet) => universitaet.kurse)
     readonly universitaet: Universitaet | undefined;
