@@ -1,18 +1,26 @@
 import { mockDB } from '../../DB/mock-db';
 import { getLogger } from '../../logger/logger.js';
-import type { Universitaet } from '../entity/universitaet.entity';
 
 export class UniversitaetReadServie {
     readonly #logger = getLogger(UniversitaetReadServie.name);
 
     /**
-     * Alle Universitaeten suchen.
+     * Alle Universitaeten asynchron suchen.
      * @returns Alle Universitaeten oder ein leeres Array
      */
-    findAll(): Universitaet[] {
+    async findAll() {
         this.#logger.debug('findAll()');
-        const result = mockDB;
+        // FIXME Nur für mocking sollte durch echten asynchronen aufruf ersetzt werden, sobnald echte DB vorhanden
+        // eslint-disable-next-line @typescript-eslint/await-thenable
+        const result = await mockDB;
         this.#logger.debug('findAll() => %o', result);
         return result;
+    }
+
+    async FindByID(id: number) {
+        this.#logger.debug('FindByID(%d)', id);
+        const result = await mockDB.filter((id) => {
+            id === this.id
+        })
     }
 }
