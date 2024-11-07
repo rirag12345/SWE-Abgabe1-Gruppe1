@@ -86,6 +86,34 @@ export class Universitaet {
     @UpdateDateColumn({ type: 'timestamp' })
     readonly updatedAt: Date | undefined;
 
+    // FIXME kann später weg, nur für DB mocking
+    // eslint-disable-next-line max-params
+    constructor(
+        id: number,
+        version: number | undefined,
+        name: string,
+        standort: string | undefined,
+        anzahlStudierende: number | undefined,
+        homepage: string | undefined,
+        gegruendet: number | undefined,
+        fakultaeten: string[] | null | undefined,
+        ranking: number | undefined,
+        kurse: Kurs[] | undefined,
+        bibliothek: Bibliothek | undefined,
+    ) {
+        this.id = id;
+        this.version = version;
+        this.name = name;
+        this.standort = standort;
+        this.anzahlStudierende = anzahlStudierende;
+        this.homepage = homepage;
+        this.gegruendet = gegruendet;
+        this.fakultaeten = fakultaeten;
+        this.ranking = ranking;
+        this.kurse = kurse;
+        this.bibliothek = bibliothek;
+    }
+
     public toString = (): string =>
         JSON.stringify({
             id: this.id,

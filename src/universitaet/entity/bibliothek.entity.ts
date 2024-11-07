@@ -42,6 +42,20 @@ export class Bibliothek {
     @JoinColumn({ name: 'universitaet_id' })
     readonly universitaet: Universitaet | undefined;
 
+    // FIXME kann später weg, nur für DB mocking
+    // eslint-disable-next-line max-params
+    constructor(
+        id: number,
+        name: string,
+        isil: string | undefined,
+        universitaet: Universitaet | undefined,
+    ) {
+        this.id = id;
+        this.name = name;
+        this.isil = isil;
+        this.universitaet = universitaet;
+    }
+
     public toString = (): string =>
         JSON.stringify({
             id: this.id,
