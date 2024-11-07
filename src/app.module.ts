@@ -18,14 +18,20 @@ import {
     Module,
     type NestModule,
 } from '@nestjs/common';
-import { GraphQLModule } from '@nestjs/graphql';
-import { TypeOrmModule } from '@nestjs/typeorm';
+// import { GraphQLModule } from '@nestjs/graphql';
+// import { TypeOrmModule } from '@nestjs/typeorm';
+import { LoggerModule } from './logger/logger.module.js';
+import { RequestLoggerMiddleware } from './logger/request-logger.middleware.js';
+import { UniversitaetGetController } from './universitaet/controller/universitaet-get.controller.js';
+import { UniversitaetModule } from './universitaet/universitaet.module.js';
 
 @Module({
-    imports: [GraphQLModule.forRoot(), TypeOrmModule.forRoot()],
+    imports: [UniversitaetModule, LoggerModule],
 })
 export class AppModule implements NestModule {
     configure(consumer: MiddlewareConsumer) {
-        consumer.apply().forRoutes('auth', 'graphql');
+        consumer
+            .apply(RequestLoggerMiddleware)
+            .forRoutes(UniversitaetGetController, 'auth', 'graphql');
     }
 }

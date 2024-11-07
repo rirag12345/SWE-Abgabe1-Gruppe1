@@ -1,5 +1,5 @@
 import { NotFoundException } from '@nestjs/common';
-import { mockDB } from '../../DB/mock-db';
+import { mockDB } from '../../DB/mock-db.js';
 import { getLogger } from '../../logger/logger.js';
 
 export class UniversitaetReadService {
@@ -18,17 +18,33 @@ export class UniversitaetReadService {
         return result;
     }
 
+    /**
+     * Eine Universität asynchron anhand der Id suchen.
+     * @param id die ID der Universität
+     * @returns Die gefundene Universität in einem Promise
+     * @throws NotFoundException wenn die Universität nicht gefunden wurde
+     */
     async findByID(id: number) {
         this.#logger.debug('FindByID(%d)', id);
+
         // FIXME Nur für mocking sollte durch echten asynchronen aufruf ersetzt werden, sobnald echte DB vorhanden
         // eslint-disable-next-line @typescript-eslint/await-thenable
         const result = await mockDB.find(
             (universitaet) => universitaet.id === id,
         );
+
+        // FIXME: Muss an QueryBuilder angepasst werden sobald die DB läuft
         if (result === undefined) {
             throw new NotFoundException('Die Universität wurde nicht gefunden');
         }
-        this.#logger.debug('FindByID(%d) => %o', id, result);
+
+        if (this.#logger.isLevelEnabled('debug')) {
+            this.#logger.debug(
+                'FindByID(%s) => %o',
+                result.toString,
+                result.name,
+            );
+        }
         return result;
     }
 }
