@@ -18,5 +18,5 @@ import { Bibliothek } from './bibliothek.entity.js';
 import { Kurs } from './kurs.entity.js';
 import { Universitaet } from './universitaet.entity.js';
 
-// erforderlich in src/config/db.ts und src/buch/buch.module.ts
+// erforderlich in src/config/db.ts und src/universitaet/universitaet.module.ts
 export const entities = [Universitaet, Kurs, Bibliothek];

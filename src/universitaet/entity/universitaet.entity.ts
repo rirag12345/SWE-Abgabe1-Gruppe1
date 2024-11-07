@@ -42,7 +42,7 @@ export class Universitaet {
     @ApiProperty({ example: 'Technische Universitaet Muenchen', type: String })
     readonly name!: string;
 
-    @Column()
+    @Column('varchar')
     @ApiProperty({ example: 'Muenchen', type: String })
     readonly standort: string | undefined;
 
@@ -50,7 +50,7 @@ export class Universitaet {
     @ApiProperty({ example: 42_000, type: Number })
     readonly anzahlStudierende: number | undefined;
 
-    @Column()
+    @Column('varchar')
     @ApiProperty({ example: 'https://www.tum.de', type: String })
     readonly homepage: string | undefined;
 

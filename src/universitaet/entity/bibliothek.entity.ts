@@ -34,7 +34,7 @@ export class Bibliothek {
     @ApiProperty({ example: 'Universitaetsbibliothek', type: String })
     readonly name!: string;
 
-    @Column()
+    @Column('varchar')
     @ApiProperty({ example: 'DE-Mun1', type: String })
     readonly isil: string | undefined;
 
