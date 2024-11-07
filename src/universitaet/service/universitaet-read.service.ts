@@ -1,7 +1,8 @@
-import { NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { mockDB } from '../../DB/mock-db.js';
 import { getLogger } from '../../logger/logger.js';
 
+@Injectable()
 export class UniversitaetReadService {
     readonly #logger = getLogger(UniversitaetReadService.name);
 

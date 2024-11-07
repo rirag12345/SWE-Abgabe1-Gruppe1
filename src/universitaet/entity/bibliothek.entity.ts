@@ -43,7 +43,7 @@ export class Bibliothek {
     readonly universitaet: Universitaet | undefined;
 
     // FIXME kann später weg, nur für DB mocking
-    // eslint-disable-next-line max-params
+
     constructor(
         id: number,
         name: string,

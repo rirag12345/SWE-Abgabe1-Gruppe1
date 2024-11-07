@@ -1,3 +1,7 @@
+/**
+ * Modul für REST-Controller zum Lesen der REST-Schnittstelle.
+ * @packageDocumentation
+ */
 import {
     Controller,
     Get,
@@ -23,6 +27,26 @@ import { paths } from '../../config/paths.js';
 import { getLogger } from '../../logger/logger.js';
 import { UniversitaetReadService } from '../service/universitaet-read.service.js';
 
+/** href-Link für HATEOAS */
+export type Link = {
+    /** href-Link für HATEOAS-Links */
+    readonly href: string;
+};
+
+/** Links für HATEOAS */
+export type Links = {
+    /** self-Link */
+    readonly self: Link;
+    /** Optionaler Linke für list */
+    readonly list?: Link;
+    /** Optionaler Linke für add */
+    readonly add?: Link;
+    /** Optionaler Linke für update */
+    readonly update?: Link;
+    /** Optionaler Linke für remove */
+    readonly remove?: Link;
+};
+
 // TODO Modell Klassen implementieren
 
 // FIXME MIME-Type sollte application/hal+json sein, sobald HATEOAS implementiert ist
@@ -43,6 +67,7 @@ export class UniversitaetGetController {
     readonly #service: UniversitaetReadService;
     readonly #logger = getLogger(UniversitaetGetController.name);
 
+    // Wird für Dependency Injection gebraucht
     constructor(service: UniversitaetReadService) {
         this.#service = service;
     }
