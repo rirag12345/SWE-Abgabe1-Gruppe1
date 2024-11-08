@@ -1,9 +1,15 @@
+/**
+ * Das Modul besteht aus der Klasse {@linkcode UniversitaetReadService}
+ * @packageDocumentation
+ */
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { mockDB } from '../../DB/mock-db.js';
 import { getLogger } from '../../logger/logger.js';
 
 @Injectable()
 export class UniversitaetReadService {
+    static readonly ID_PATTERN = /^[1-9]\d{0,10}$/u;
+
     readonly #logger = getLogger(UniversitaetReadService.name);
 
     /**

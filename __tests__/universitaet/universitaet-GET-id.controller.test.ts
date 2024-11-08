@@ -3,6 +3,7 @@ import { HttpStatus } from '@nestjs/common';
 import axios, { type AxiosInstance, type AxiosResponse } from 'axios';
 // TODO Modell Klassen und HATEOAS implementieren bevor man hier weitermacht --> macht sonst keinen Sinn
 // import { type BuchModel } from '../../src/universitaet/controller/universitaet-get.controller';
+import type { UniversitaetModel } from '../../src/universitaet/controller/universitaet-get.controller.js';
 import {
     host,
     httpsAgent,
@@ -43,7 +44,7 @@ describe('GET /rest/:id', () => {
         const url = `/${idVorhanden}`;
 
         // when
-        const { status, headers, data }: AxiosResponse<BuchModel> =
+        const { status, headers, data }: AxiosResponse<UniversitaetModel> =
             await client.get(url);
 
         // then

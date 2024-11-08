@@ -13,6 +13,7 @@ import {
     Res,
 } from '@nestjs/common';
 import {
+    ApiBearerAuth,
     ApiHeader,
     ApiNotFoundResponse,
     ApiOkResponse,
@@ -25,7 +26,10 @@ import { Request, Response } from 'express';
 import { Public } from 'nest-keycloak-connect';
 import { paths } from '../../config/paths.js';
 import { getLogger } from '../../logger/logger.js';
+import { Bibliothek } from '../entity/bibliothek.entity';
+import { Universitaet } from '../entity/universitaet.entity.js';
 import { UniversitaetReadService } from '../service/universitaet-read.service.js';
+import { getBaseUri } from './getBaseUri.js';
 
 /** href-Link für HATEOAS */
 export type Link = {
@@ -41,28 +45,45 @@ export type Links = {
     readonly list?: Link;
     /** Optionaler Linke für add */
     readonly add?: Link;
-    /** Optionaler Linke für update */
-    readonly update?: Link;
-    /** Optionaler Linke für remove */
-    readonly remove?: Link;
+    // TODO falls später implementiert auskommentieren
+    // /** Optionaler Linke für update */
+    // readonly update?: Link;
+    // /** Optionaler Linke für remove */
+    // readonly remove?: Link;
 };
 
-// TODO Modell Klassen implementieren
+/**
+ * Typdefinition eines Bibliothek-Objektes ohne Rückwärtsverweis zur Universitaet
+ */
+export type BibliothekModel = Omit<Bibliothek, 'universitaet' | 'id'>;
 
-// FIXME MIME-Type sollte application/hal+json sein, sobald HATEOAS implementiert ist
+/**
+ * Universitaet Objekt mit HATEOAS-Links.
+ */
+export type UniversitaetModel = Omit<
+    Universitaet,
+    'id' | 'version' | 'createdAt' | 'updatedAt' | 'kurse' | 'bibliothek'
+> & {
+    bibliothek: BibliothekModel;
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    _links: Links;
+};
+
+export type UniversitaetenModel = {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    _embedded: {
+        universitaeten: UniversitaetModel[];
+    };
+};
+
 const MIMETYPE = 'application/hal+json';
 
+/**
+ * REST-Controller-Klasse für das Lesen von Universitäten.
+ */
 @Controller(paths.rest)
 @ApiTags(`Universität REST API`)
-@ApiParam({
-    name: `id`,
-    description: `Bsp: 1`,
-})
-@ApiHeader({
-    name: 'If-None-Match',
-    description: 'Header für bedingte GET-Requests, z.B. "0"',
-    required: false,
-})
+@ApiBearerAuth()
 export class UniversitaetGetController {
     readonly #service: UniversitaetReadService;
     readonly #logger = getLogger(UniversitaetGetController.name);
@@ -90,12 +111,29 @@ export class UniversitaetGetController {
 
         const universitaeten = await this.#service.findAll();
         this.#logger.debug('get: universitaeten=%o', universitaeten);
-        return res.contentType(MIMETYPE).json(universitaeten).send();
+
+        const universitaetenModel = universitaeten.map((universitaet) =>
+            this.#toModel(universitaet, req, false),
+        );
+        this.#logger.debug(`get: universitaetenModel=%0`, universitaetenModel);
+        const result: UniversitaetenModel = {
+            _embedded: { universitaeten: universitaetenModel },
+        };
+        return res.contentType(MIMETYPE).json(result).send();
     }
 
     @Get(':id')
     @Public()
     @ApiOperation({ summary: `Suche mit id` })
+    @ApiParam({
+        name: 'id',
+        description: 'Z.B. 1',
+    })
+    @ApiHeader({
+        name: 'If-None-Match',
+        description: 'Header für bedingte GET-Requests, z.B. "0"',
+        required: false,
+    })
     @ApiOkResponse({ description: `Die Universität wurde gefunden` })
     @ApiNotFoundResponse({
         description: `Die Universität wurde nicht gefunden`,
@@ -141,5 +179,42 @@ export class UniversitaetGetController {
         res.header('ETag', `"${versionDb}"`);
 
         return res.contentType(MIMETYPE).json(universitaet);
+    }
+
+    #toModel(universitaet: Universitaet, req: Request, all = true) {
+        const baseUri = getBaseUri(req);
+        this.#logger.debug('#toModel: baseUri=%s', baseUri);
+        const { id } = universitaet;
+        const links = all
+            ? {
+                  self: { href: `${baseUri}/${id}` },
+                  list: { href: `${baseUri}` },
+                  add: { href: `${baseUri}` },
+                  update: { href: `${baseUri}/${id}` },
+                  remove: { href: `${baseUri}/${id}` },
+              }
+            : { self: { href: `${baseUri}/${id}` } };
+        this.#logger.debug(
+            '#toModel: universitaet=%o,links=%o',
+            universitaet,
+            links,
+        );
+        const bibliothekModel: BibliothekModel = {
+            name: universitaet.bibliothek?.name ?? `N/A`,
+            isil: universitaet.bibliothek?.isil ?? `n/a`,
+        };
+        const universitaetModel: UniversitaetModel = {
+            name: universitaet.name,
+            standort: universitaet.standort,
+            anzahlStudierende: universitaet.anzahlStudierende,
+            homepage: universitaet.homepage,
+            gegruendet: universitaet.gegruendet,
+            fakultaeten: universitaet.fakultaeten,
+            ranking: universitaet.ranking,
+            bibliothek: bibliothekModel,
+            _links: links,
+        };
+
+        return universitaetModel;
     }
 }
