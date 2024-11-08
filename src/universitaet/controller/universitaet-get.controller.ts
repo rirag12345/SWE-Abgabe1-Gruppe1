@@ -119,7 +119,7 @@ export class UniversitaetGetController {
         const result: UniversitaetenModel = {
             _embedded: { universitaeten: universitaetenModel },
         };
-        return res.contentType(MIMETYPE).json(result).send();
+        return res.contentType(MIMETYPE).json(result);
     }
 
     @Get(':id')
@@ -178,7 +178,9 @@ export class UniversitaetGetController {
         this.#logger.debug('getById: versionDb=%s', versionDb);
         res.header('ETag', `"${versionDb}"`);
 
-        return res.contentType(MIMETYPE).json(universitaet);
+        const universitaetModel = this.#toModel(universitaet, req);
+        this.#logger.debug(`getById: universitaetModel=%o`, universitaetModel);
+        return res.contentType(MIMETYPE).json(universitaetModel);
     }
 
     #toModel(universitaet: Universitaet, req: Request, all = true) {
