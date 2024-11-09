@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`GET /rest/:id Universitaet zu vorhandener Id 1`] = `"https://debian:3000/rest/1"`;
