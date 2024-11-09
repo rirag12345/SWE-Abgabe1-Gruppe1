@@ -5,7 +5,6 @@ export class KursBuilder {
     private id!: number;
     private titel: string | undefined;
     private startDatum: Date | undefined;
-    private inhalte: string[] | null | undefined;
     private universitaet: Universitaet | undefined;
 
     withID(id: number): this {
@@ -23,11 +22,6 @@ export class KursBuilder {
         return this;
     }
 
-    withInhalte(inhalte: string[] | null | undefined): this {
-        this.inhalte = inhalte;
-        return this;
-    }
-
     withUniversitaet(universitaet: Universitaet | undefined): this {
         this.universitaet = universitaet;
         return this;
@@ -38,7 +32,6 @@ export class KursBuilder {
             this.id,
             this.titel!,
             this.startDatum,
-            this.inhalte,
             this.universitaet,
         );
     }

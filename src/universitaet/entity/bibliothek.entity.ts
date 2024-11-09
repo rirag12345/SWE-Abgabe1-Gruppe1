@@ -40,7 +40,7 @@ export class Bibliothek {
 
     @OneToOne(() => Universitaet, (universitaet) => universitaet.bibliothek)
     @JoinColumn({ name: 'universitaet_id' })
-    readonly universitaet: Universitaet | undefined;
+    universitaet: Universitaet | undefined;
 
     // FIXME kann später weg, nur für DB mocking
 

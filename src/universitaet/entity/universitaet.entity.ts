@@ -69,22 +69,22 @@ export class Universitaet {
     @ApiProperty({ example: 1, type: Number })
     readonly ranking: number | undefined;
 
-    @OneToMany(() => Kurs, (kurs) => kurs.universitaet, {
-        cascade: ['insert', 'remove'],
-    })
-    readonly kurse: Kurs[] | undefined;
-
     @OneToOne(() => Bibliothek, (bibliothek) => bibliothek.universitaet, {
         cascade: ['insert', 'remove'],
     })
     @JoinColumn({ name: 'bibliothek_id' })
     readonly bibliothek: Bibliothek | undefined;
 
+    @OneToMany(() => Kurs, (kurs) => kurs.universitaet, {
+        cascade: ['insert', 'remove'],
+    })
+    readonly kurse: Kurs[] | undefined;
+
     @CreateDateColumn({ type: 'timestamp' })
-    readonly createdAt: Date | undefined;
+    readonly erzeugt: Date | undefined;
 
     @UpdateDateColumn({ type: 'timestamp' })
-    readonly updatedAt: Date | undefined;
+    readonly aktualisiert: Date | undefined;
 
     // FIXME kann später weg, nur für DB mocking
     // eslint-disable-next-line max-params
@@ -125,7 +125,7 @@ export class Universitaet {
             gegruendet: this.gegruendet,
             fakultaeten: this.fakultaeten,
             ranking: this.ranking,
-            createdAt: this.createdAt,
-            updatedAt: this.updatedAt,
+            erzeugt: this.erzeugt,
+            aktualisiert: this.aktualisiert,
         });
 }
