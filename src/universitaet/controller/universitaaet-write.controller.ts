@@ -14,7 +14,14 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-import { Body, Controller, Post, Req, Res } from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Post,
+    Req,
+    Res,
+    UseInterceptors,
+} from '@nestjs/common';
 import {
     ApiBadRequestResponse,
     ApiCreatedResponse,
@@ -24,6 +31,7 @@ import {
 import { Request, Response } from 'express';
 import { paths } from '../../config/paths.js';
 import { getLogger } from '../../logger/logger.js';
+import { ResponseTimeInterceptor } from '../../logger/response-time.interceptor.js';
 import { type Bibliothek } from '../entity/bibliothek.entity.js';
 import { type Kurs } from '../entity/kurs.entity.js';
 import { type Universitaet } from '../entity/universitaet.entity';
@@ -32,6 +40,7 @@ import { getBaseUri } from './getBaseUri.js';
 import { UniversitaetDTO } from './universitaetDTO.entity.js';
 
 @Controller(paths.rest)
+@UseInterceptors(ResponseTimeInterceptor)
 @ApiTags('Universitaet REST-API')
 export class UniversitaetWriteController {
     readonly #service: UniversitaetWriteService;
