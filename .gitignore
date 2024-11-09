@@ -77,3 +77,6 @@ snyk-*.log
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+#linux paths
+.extras/compose/backend/postgres/docker-compose.override.yml
