@@ -21,6 +21,8 @@ import { Bibliothek } from '../entity/bibliothek.entity.js';
 import { Kurs } from '../entity/kurs.entity.js';
 import { Universitaet } from '../entity/universitaet.entity.js';
 
+// TODO überprüfen, ob richtig eingestellt für TypeORM
+
 /**
  * Das Modul besteht aus der Klasse {@linkcode QueryBuilder}.
  * @packageDocumentation
