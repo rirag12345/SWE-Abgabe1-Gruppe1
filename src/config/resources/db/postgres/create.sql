@@ -2,7 +2,6 @@ CREATE SCHEMA IF NOT EXISTS AUTHORIZATION universitaet;
 
 ALTER ROLE universitaet SET search_path = 'universitaet';
 
-- Tabelle für Universitaet
 CREATE TABLE IF NOT EXISTS universitaet (
     id INTEGER GENERATED ALWAYS AS IDENTITY(START WITH 1000) PRIMARY KEY USING INDEX TABLESPACE universitaetspace,
     version INTEGER NOT NULL DEFAULT 0,
@@ -17,7 +16,6 @@ CREATE TABLE IF NOT EXISTS universitaet (
     aktualisiert TIMESTAMP NOT NULL DEFAULT NOW(),
 );
 
--- Tabelle für Bibliothek
 CREATE TABLE IF NOT EXISTS bibliothek (
     id  integer GENERATED ALWAYS AS IDENTITY(START WITH 1000) PRIMARY KEY USING INDEX TABLESPACE universitaetspace,
     name TEXT NOT NULL,
@@ -27,7 +25,6 @@ CREATE TABLE IF NOT EXISTS bibliothek (
 
 -
 
--- Tabelle für Kurs
 CREATE TABLE IF NOT EXISTS kurs (
     id integer GENERATED ALWAYS AS IDENTITY(START WITH 1000) PRIMARY KEY USING INDEX TABLESPACE universitaetspace,
     titel TEXT NOT NULL,
