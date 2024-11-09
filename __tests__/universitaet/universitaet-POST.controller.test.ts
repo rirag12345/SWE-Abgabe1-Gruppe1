@@ -16,6 +16,7 @@
 import { afterAll, beforeAll, describe, expect, test } from '@jest/globals';
 import { HttpStatus } from '@nestjs/common';
 import axios, { type AxiosInstance, type AxiosResponse } from 'axios';
+import { isDate } from 'class-validator';
 import type { UniversitaetDTO } from '../../src/universitaet/controller/universitaetDTO.entity.js';
 import { UniversitaetReadService } from '../../src/universitaet/service/universitaet-read.service';
 import {
@@ -44,11 +45,15 @@ const neueUniversitaet: UniversitaetDTO = {
     kurse: [
         {
             titel: 'Informatik',
-            startDatum: new Date('2024-11-09'),
+            startDatum: isDate('2024-09-11')
+                ? new Date('2024-09-11')
+                : undefined,
         },
         {
             titel: 'Maschinenbau',
-            startDatum: new Date('2024-11-08'),
+            startDatum: isDate('2023-04-01')
+                ? new Date('2023-04-01')
+                : undefined,
         },
     ],
 };
