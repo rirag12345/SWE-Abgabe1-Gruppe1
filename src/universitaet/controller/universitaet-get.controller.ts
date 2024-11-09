@@ -62,7 +62,7 @@ export type BibliothekModel = Omit<Bibliothek, 'universitaet' | 'id'>;
  */
 export type UniversitaetModel = Omit<
     Universitaet,
-    'id' | 'version' | 'createdAt' | 'updatedAt' | 'kurse' | 'bibliothek'
+    'id' | 'version' | 'erzeugt' | 'aktualisiert' | 'kurse' | 'bibliothek'
 > & {
     bibliothek: BibliothekModel;
     // eslint-disable-next-line @typescript-eslint/naming-convention
