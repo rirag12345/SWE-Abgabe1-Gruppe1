@@ -24,7 +24,7 @@
 services:
   db:
     # https://github.com/docker-library/postgres/blob/master/16/bookworm/Dockerfile
-    image: postgres:16.4-bookworm
+    image: postgres:17.0-bookworm
     ports:
       - published: 5432
         target: 5432
@@ -59,7 +59,7 @@ services:
         # .s.PGSQL.5432.lock
         target: /var/run/postgresql
       - type: bind
-        source: C:/Zimmermann/volumes/postgres/csv/universitaet
+        source: C:/Zimmermann/volumes/postgres/csv/buch
         target: /csv
         read_only: true
       - type: bind

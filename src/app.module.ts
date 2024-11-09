@@ -1,6 +1,4 @@
-// Copyright (C) 2016 - present Juergen Zimmermann, Hochschule Karlsruhe
-// Copyright (C) 2024 - present Philip Neuffer
-// Copyright (C) 2024 - present Felix Jaeger
+// Copyright (C) 2021 - present Juergen Zimmermann, Hochschule Karlsruhe
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -21,34 +19,19 @@ import {
     type NestModule,
 } from '@nestjs/common';
 // import { GraphQLModule } from '@nestjs/graphql';
-import { TypeOrmModule } from '@nestjs/typeorm';
-// import { graphQlModuleOptions } from './config/graphql.js';
-import { DevModule } from './config/dev/dev.module.js';
-import { typeOrmModuleOptions } from './config/typeormOptions.js';
+// import { TypeOrmModule } from '@nestjs/typeorm';
 import { LoggerModule } from './logger/logger.module.js';
 import { RequestLoggerMiddleware } from './logger/request-logger.middleware.js';
-import { UniversitaetWriteController } from './universitaet/controller/universitaaet-write.controller.js';
 import { UniversitaetGetController } from './universitaet/controller/universitaet-get.controller.js';
 import { UniversitaetModule } from './universitaet/universitaet.module.js';
-// import { KeycloakModule } from './security/keycloak/keycloak.module.js';
 
 @Module({
-    imports: [
-        UniversitaetModule,
-        DevModule,
-        LoggerModule,
-        TypeOrmModule.forRoot(typeOrmModuleOptions),
-    ],
+    imports: [UniversitaetModule, LoggerModule],
 })
 export class AppModule implements NestModule {
     configure(consumer: MiddlewareConsumer) {
         consumer
             .apply(RequestLoggerMiddleware)
-            .forRoutes(
-                UniversitaetGetController,
-                UniversitaetWriteController,
-                'auth',
-                'graphql',
-            );
+            .forRoutes(UniversitaetGetController, 'auth', 'graphql');
     }
 }
