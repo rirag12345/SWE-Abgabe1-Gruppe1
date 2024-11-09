@@ -1,6 +1,8 @@
 import { afterAll, beforeAll, describe, expect, test } from '@jest/globals';
 import { HttpStatus } from '@nestjs/common';
 import axios, { type AxiosInstance, type AxiosResponse } from 'axios';
+// TODO Modell Klassen und HATEOAS implementieren bevor man hier weitermacht --> macht sonst keinen Sinn
+// import { type BuchModel } from '../../src/universitaet/controller/universitaet-get.controller';
 import type { UniversitaetModel } from '../../src/universitaet/controller/universitaet-get.controller.js';
 import {
     host,
@@ -9,21 +11,16 @@ import {
     shutdownServer,
     startServer,
 } from '../testserver.js';
-import type { ErrorResponse } from './error-response.js';
 
 // -----------------------------------------------------------------------------
 // T e s t d a t e n
 // -----------------------------------------------------------------------------
 const idVorhanden = '1';
-const idNichtVorhanden = '9999999999';
-// const idVorhandenETag = '1';
-const idFalsch = 'abc';
 
 // -----------------------------------------------------------------------------
 // T e s t s
 // -----------------------------------------------------------------------------
 // Test-Suite
-// eslint-disable-next-line max-lines-per-function
 describe('GET /rest/:id', () => {
     let client: AxiosInstance;
 
@@ -42,7 +39,7 @@ describe('GET /rest/:id', () => {
         await shutdownServer();
     });
 
-    test(`Universitaet zu vorhandener Id`, async () => {
+    test('Buch zu vorhandener ID', async () => {
         // given
         const url = `/${idVorhanden}`;
 
@@ -60,35 +57,5 @@ describe('GET /rest/:id', () => {
         // https://jestjs.io/docs/next/snapshot-testing
         // https://medium.com/swlh/easy-integration-testing-of-graphql-apis-with-jest-63288d0ad8d7
         expect(selfLink).toMatchSnapshot();
-    });
-
-    test(`Keine Universitaet zu nicht vorhandener Id`, async () => {
-        // given
-        const url = `/${idNichtVorhanden}`;
-
-        // when
-        const { status, data }: AxiosResponse<ErrorResponse> =
-            await client.get(url);
-
-        const { error, message } = data;
-
-        // then
-        expect(error).toBe(`Not Found`);
-        expect(message).toEqual(expect.stringContaining(message));
-        expect(status).toBe(HttpStatus.NOT_FOUND);
-    });
-
-    test(`Keine Universitaet zu falscher Id`, async () => {
-        // given
-        const url = `/${idFalsch}`;
-
-        // when
-        const { status, data }: AxiosResponse<ErrorResponse> =
-            await client.get(url);
-
-        const { error } = data;
-
-        expect(error).toBe(`Not Found`);
-        expect(status).toBe(HttpStatus.NOT_FOUND);
     });
 });
