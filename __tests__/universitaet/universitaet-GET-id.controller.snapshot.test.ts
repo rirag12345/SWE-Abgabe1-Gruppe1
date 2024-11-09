@@ -52,7 +52,7 @@ describe('GET /rest/:id', () => {
         await shutdownServer();
     });
 
-    test('Buch zu vorhandener ID', async () => {
+    test('Universität zu vorhandener ID', async () => {
         // given
         const url = `/${idVorhanden}`;
 
