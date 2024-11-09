@@ -23,7 +23,7 @@ import {
     HttpStatus,
     Post,
     Res,
-    UseGuards,
+    // UseGuards,
     UseInterceptors,
 } from '@nestjs/common';
 import {
@@ -34,7 +34,7 @@ import {
     ApiTags,
 } from '@nestjs/swagger';
 import { Response } from 'express';
-import { AuthGuard, Roles } from 'nest-keycloak-connect';
+// import { AuthGuard, Roles } from 'nest-keycloak-connect';
 import { ResponseTimeInterceptor } from '../../logger/response-time.interceptor.js';
 import { DbPopulateService } from './db-populate.service.js';
 
@@ -42,8 +42,8 @@ import { DbPopulateService } from './db-populate.service.js';
  * Die Controller-Klasse für die Entwicklung, z.B. Neuladen der DB.
  */
 @Controller('dev')
-@UseGuards(AuthGuard)
-@Roles({ roles: ['admin'] })
+// @UseGuards(AuthGuard)
+// @Roles({ roles: ['admin'] })
 @UseInterceptors(ResponseTimeInterceptor)
 @ApiTags('Dev')
 export class DevController {
