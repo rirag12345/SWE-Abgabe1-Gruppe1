@@ -1,4 +1,5 @@
 // Copyright (C) 2020 - present Juergen Zimmermann, Hochschule Karlsruhe
+// Copyright (C) 2024 - present Felix Jaeger
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -30,9 +31,4 @@ const type: DbType | undefined = dbConfig?.type; // eslint-disable-line @typescr
 
 // 'better-sqlite3' erfordert node-gyp, wenn das Docker-Image gebaut wird
 export const dbType =
-    type === 'postgres' ||
-    type === 'mysql' ||
-    type === 'oracle' ||
-    type === 'sqlite'
-        ? type
-        : 'postgres';
+    type === 'postgres' || type === 'mysql' ? type : 'postgres';

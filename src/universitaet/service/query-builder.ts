@@ -1,5 +1,5 @@
 // Copyright (C) 2016 - present Juergen Zimmermann, Hochschule Karlsruhe
-//
+// Copyright (C) 2024 - present Philip Neuffer
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -20,6 +20,8 @@ import { getLogger } from '../../logger/logger.js';
 import { Bibliothek } from '../entity/bibliothek.entity.js';
 import { Kurs } from '../entity/kurs.entity.js';
 import { Universitaet } from '../entity/universitaet.entity.js';
+
+// TODO überprüfen, ob richtig eingestellt für TypeORM
 
 /**
  * Das Modul besteht aus der Klasse {@linkcode QueryBuilder}.
@@ -49,12 +51,12 @@ export class QueryBuilder {
 
     readonly #bibliothekAlias = `${Bibliothek.name.charAt(0).toLowerCase()}${Bibliothek.name.slice(1)}`;
 
+    readonly #logger = getLogger(QueryBuilder.name);
+
     // FIXME Kurse ist eine Liste, daher muss KurseAlias evtl. noch angepasst werden --> hat er aber auch nicht
     readonly #kursAlias = `${Kurs.name.charAt(0).toLowerCase()}${Kurs.name.slice(1)}`;
 
     readonly #repo: Repository<Universitaet>;
-
-    readonly #logger = getLogger(QueryBuilder.name);
 
     constructor(
         @InjectRepository(Universitaet) repo: Repository<Universitaet>,
@@ -62,14 +64,21 @@ export class QueryBuilder {
         this.#repo = repo;
     }
 
+    /**
+     * Eine Universitaet mit der gegebenen Id suchen.
+     * @param id Id der gesuchten Universitaet
+     * @returns
+     */
     buildId({ id, mitKursen = false }: BuildIdParams) {
+        // QueryBuilder "universitaet" fuer Repository<Universitaet> erstellen
         const queryBuilder = this.#repo.createQueryBuilder(
             this.#universiaetAlias,
         );
 
+        // Fetch-Join: aus QueryBuilder "universitaet" die Property "bibliothek" laden (Tabelle bibliothek)
         queryBuilder.innerJoinAndSelect(
             `${this.#universiaetAlias}.bibliothek`,
-            this.#kursAlias,
+            this.#bibliothekAlias,
         );
 
         if (mitKursen) {
@@ -82,6 +91,19 @@ export class QueryBuilder {
         // eslint-disable-next-line object-shorthand
         queryBuilder.where(`${this.#universiaetAlias}.id = :id`, { id: id });
         // .getOne() wird nicht gebruacht, da die ID der Primärschlüssel ist
+        return queryBuilder;
+    }
+
+    // FIXME macht erst wirklich Sinn, wenn Flexible Querys implementiert sind
+    build() {
+        const queryBuilder = this.#repo.createQueryBuilder(
+            this.#universiaetAlias,
+        );
+        queryBuilder.innerJoinAndSelect(
+            `${this.#universiaetAlias}.bibliothek`,
+            `bibliothek`,
+        );
+        this.#logger.debug('build: sql=%s', queryBuilder.getSql());
         return queryBuilder;
     }
 }
