@@ -13,12 +13,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-// TODO Modulbeschreibung korrigieren
-/**
- * Das Modul besteht aus der Controller-Klasse für Lesen an der REST-Schnittstelle.
- * @packageDocumentation
- */
-
 import { type Request } from 'express';
 import { nodeConfig } from '../../config/node.js';
 import { UniversitaetReadService } from '../service/universitaet-read.service.js';
