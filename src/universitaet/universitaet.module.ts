@@ -17,9 +17,11 @@
 // FIXME: Wenn DB steht fehlende Imports ergänzen
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UniversitaetWriteController } from './controller/universitaaet-write.controller.js';
 import { UniversitaetGetController } from './controller/universitaet-get.controller.js';
 import { entities } from './entity/entities.js';
 import { UniversitaetReadService } from './service/universitaet-read.service.js';
+import { UniversitaetWriteService } from './service/universitaet-write.service.js';
 
 /**
  * Das Modul besteht aus Controller- und Service-Klassen für die Verwaltung von
@@ -33,10 +35,10 @@ import { UniversitaetReadService } from './service/universitaet-read.service.js'
  */
 @Module({
     imports: [TypeOrmModule.forFeature(entities)],
-    controllers: [UniversitaetGetController],
+    controllers: [UniversitaetGetController, UniversitaetWriteController],
     // Provider sind z.B. Service-Klassen fuer DI
-    providers: [UniversitaetReadService],
+    providers: [UniversitaetReadService, UniversitaetWriteService],
     // Export der Provider fuer DI in anderen Modulen
-    exports: [UniversitaetReadService],
+    exports: [UniversitaetReadService, UniversitaetWriteService],
 })
 export class UniversitaetModule {}
