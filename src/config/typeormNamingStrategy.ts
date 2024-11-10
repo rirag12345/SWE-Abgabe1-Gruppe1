@@ -1,4 +1,5 @@
 // Copyright (C) 2024 - present Juergen Zimmermann, Hochschule Karlsruhe
+// Copyright (C) 2024 - present Felix Jaeger
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -16,7 +17,6 @@
 // https://github.com/tonivj5/typeorm-naming-strategies/blob/master/src/snake-naming.strategy.ts
 // https://gist.github.com/recurrence/b6a4cb04a8ddf42eda4e4be520921bd2
 
-// eslint-disable-next-line max-classes-per-file
 import { DefaultNamingStrategy, type NamingStrategyInterface } from 'typeorm';
 import { snakeCase } from 'typeorm/util/StringUtils.js';
 
@@ -84,80 +84,5 @@ export class SnakeNamingStrategy extends DefaultNamingStrategy implements Naming
 
     eagerJoinRelationAlias(alias: string, propertyPath: string) {
         return `${alias}__${propertyPath.replace('.', '_')}`;
-    }
-}
-
-// https://github.com/tonivj5/typeorm-naming-strategies/blob/master/src/snake-naming.strategy.ts
-// https://github.com/typeorm/typeorm/blob/master/src/naming-strategy/DefaultNamingStrategy.ts
-// https://github.com/typeorm/typeorm/blob/master/sample/sample12-custom-naming-strategy/naming-strategy/CustomNamingStrategy.ts
-export class OracleNamingStrategy extends SnakeNamingStrategy {
-    override tableName(targetName: string, userSpecifiedName: string): string {
-        return super.tableName(targetName, userSpecifiedName).toUpperCase();
-    }
-
-    override columnName(
-        propertyName: string,
-        customName: string,
-        embeddedPrefixes: string[],
-    ) {
-        return super
-            .columnName(propertyName, customName, embeddedPrefixes)
-            .toUpperCase();
-    }
-
-    override relationName(propertyName: string) {
-        return super.relationName(propertyName).toUpperCase();
-    }
-
-    override joinColumnName(
-        relationName: string,
-        referencedColumnName: string,
-    ) {
-        return super
-            .joinColumnName(relationName, referencedColumnName)
-            .toUpperCase();
-    }
-
-    override joinTableName(
-        firstTableName: string,
-        secondTableName: string,
-        firstPropertyName: string,
-        secondPropertyName: string,
-    ) {
-        return super
-            .joinTableName(
-                firstTableName,
-                secondTableName,
-                firstPropertyName,
-                secondPropertyName,
-            )
-            .toUpperCase();
-    }
-
-    override joinTableColumnName(
-        tableName: string,
-        propertyName: string,
-        columnName?: string,
-    ) {
-        return super
-            .joinTableColumnName(tableName, propertyName, columnName)
-            .toUpperCase();
-    }
-
-    // eslint-disable-next-line unicorn/no-keyword-prefix
-    override classTableInheritanceParentColumnName(
-        parentTableName: any,
-        parentTableIdPropertyName: any,
-    ) {
-        return super
-            .classTableInheritanceParentColumnName(
-                parentTableName,
-                parentTableIdPropertyName,
-            )
-            .toUpperCase();
-    }
-
-    override eagerJoinRelationAlias(alias: string, propertyPath: string) {
-        return super.eagerJoinRelationAlias(alias, propertyPath).toUpperCase();
     }
 }

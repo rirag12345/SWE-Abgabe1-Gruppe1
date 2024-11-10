@@ -23,14 +23,11 @@ import path from 'node:path';
 import { type DataSourceOptions } from 'typeorm';
 import { entities } from '../universitaet/entity/entities.js';
 import { Universitaet } from '../universitaet/entity/universitaet.entity.js';
-import { BASEDIR, config } from './app.js';
+import { config } from './app.js';
 import { dbType } from './db.js';
 import { logLevel } from './logger.js';
 import { nodeConfig } from './node.js';
-import {
-    OracleNamingStrategy,
-    SnakeNamingStrategy,
-} from './typeormNamingStrategy.js';
+import { SnakeNamingStrategy } from './typeormNamingStrategy.js';
 
 const { db } = config;
 
@@ -47,11 +44,7 @@ const passAdmin = (db?.passwordAdmin as string | undefined) ?? 'p';
 // https://github.com/tonivj5/typeorm-naming-strategies/blob/master/src/snake-naming.strategy.ts
 // https://github.com/typeorm/typeorm/blob/master/src/naming-strategy/DefaultNamingStrategy.ts
 // https://github.com/typeorm/typeorm/blob/master/sample/sample12-custom-naming-strategy/naming-strategy/CustomNamingStrategy.ts
-// FIXME Entweder entfernen oder Oracle in dbType aufnehmen --> fehlt stand jetzt dort
-const namingStrategy =
-    dbType === 'oracle'
-        ? new OracleNamingStrategy()
-        : new SnakeNamingStrategy();
+const namingStrategy = new SnakeNamingStrategy();
 
 // logging bei TypeORM durch console.log()
 const logging =
@@ -116,48 +109,6 @@ switch (dbType) {
         };
         break;
     }
-    case 'oracle': {
-        dataSourceOptions = {
-            type: 'oracle',
-            host,
-            port: 1521,
-            username,
-            password: pass,
-            database: 'FREEPDB1',
-            serviceName: 'freepdb1',
-            schema: username.toUpperCase(),
-            poolSize: 10,
-            entities,
-            namingStrategy,
-            logging,
-            logger,
-        };
-        break;
-    }
-    // 'better-sqlite3' erfordert Python zum Uebersetzen, wenn das Docker-Image gebaut wird
-    // ${env:LOCALAPPDATA}\node-gyp\Cache\<Node_Version>\include\node\v8config.h
-    // npm rebuild better-sqlite3 --update-binary
-    // npm i better-sqlite3
-    case 'sqlite': {
-        const sqliteDatabase = path.resolve(
-            BASEDIR,
-            'config',
-            'resources',
-            'db',
-            'sqlite',
-            `${database}.sqlite`,
-        );
-        dataSourceOptions = {
-            type: 'sqlite',
-            // type: 'better-sqlite3',
-            database: sqliteDatabase,
-            entities,
-            namingStrategy,
-            logging,
-            logger,
-        };
-        break;
-    }
 }
 Object.freeze(dataSourceOptions);
 export const typeOrmModuleOptions = dataSourceOptions;
@@ -188,6 +139,7 @@ if (dbType === 'postgres') {
         ssl: { cert },
         extra: { ssl: { rejectUnauthorized: false } },
     };
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 } else if (dbType === 'mysql') {
     const cert = readFileSync(path.resolve(dbResourcesDir, 'certificate.cer')); // eslint-disable-line security/detect-non-literal-fs-filename
     adminDataSourceOptionsTemp = {
