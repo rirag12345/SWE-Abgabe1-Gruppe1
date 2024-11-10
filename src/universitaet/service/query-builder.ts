@@ -1,5 +1,7 @@
 // Copyright (C) 2016 - present Juergen Zimmermann, Hochschule Karlsruhe
 // Copyright (C) 2024 - present Philip Neuffer
+// Copyright (C) 2024 - present Felix Jaeger
+//
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -94,7 +96,12 @@ export class QueryBuilder {
         return queryBuilder;
     }
 
+    /**
+     * Universitäten asynchron suchen.
+     * @returns QueryBuilder
+     */
     // FIXME macht erst wirklich Sinn, wenn Flexible Querys implementiert sind
+    // TODO für Suche mögliche fehlende Implementierung ergänzen
     build() {
         const queryBuilder = this.#repo.createQueryBuilder(
             this.#universiaetAlias,

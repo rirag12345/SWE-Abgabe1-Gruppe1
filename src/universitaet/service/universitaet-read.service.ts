@@ -1,5 +1,6 @@
 // Copyright (C) 2016 - present Juergen Zimmermann, Hochschule Karlsruhe
 // Copyright (C) 2024 - present Philip Neuffer
+//
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
@@ -13,6 +14,8 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+// FIXME Mock Datenbank durch echte Datenbank ersetzen
+// TODO anbindung an Datenbank über TypeORM implementieren.
 /**
  * Das Modul besteht aus der Klasse {@linkcode UniversitaetReadService}
  * @packageDocumentation
