@@ -18,7 +18,15 @@
 
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsArray, IsOptional, ValidateNested } from 'class-validator';
+import {
+    ArrayUnique,
+    IsArray,
+    IsInt,
+    IsOptional,
+    IsUrl,
+    Min,
+    ValidateNested,
+} from 'class-validator';
 import { BibliothekDTO } from './bibliothekDTO.entity.js';
 import { KursDTO } from './kursDTO.entity.js';
 
@@ -26,15 +34,16 @@ export class UniversitaetDtoOhneRef {
     @ApiProperty({ example: 'Technische Universitaet Muenchen', type: String })
     readonly name!: string;
 
-    @IsOptional()
     @ApiProperty({ example: 'Muenchen', type: String })
     readonly standort: string | undefined;
 
     @IsOptional()
+    @Min(0)
     @ApiProperty({ example: 42_000, type: Number })
     readonly anzahlStudierende: number | undefined;
 
     @IsOptional()
+    @IsUrl()
     @ApiProperty({ example: 'https://www.tum.de', type: String })
     readonly homepage: string | undefined;
 
@@ -43,6 +52,7 @@ export class UniversitaetDtoOhneRef {
     readonly gegruendet: number | undefined;
 
     @IsOptional()
+    @ArrayUnique()
     @ApiProperty({
         example: ['Informatik', 'Maschinenbau', 'Elektrotechnik'],
         type: [String],
@@ -50,6 +60,7 @@ export class UniversitaetDtoOhneRef {
     readonly fakultaeten: string[] | null | undefined;
 
     @IsOptional()
+    @IsInt()
     @ApiProperty({ example: 1, type: Number })
     readonly ranking: number | undefined;
 }

@@ -15,7 +15,13 @@
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+    Column,
+    Entity,
+    JoinColumn,
+    ManyToOne,
+    PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Universitaet } from './universitaet.entity.js';
 
 // Kurs Entity
@@ -33,6 +39,7 @@ export class Kurs {
     readonly startDatum: Date | undefined;
 
     @ManyToOne(() => Universitaet, (universitaet) => universitaet.kurse)
+    @JoinColumn({ name: 'universitaet_id' })
     universitaet: Universitaet | undefined;
 
     public toString = (): string =>

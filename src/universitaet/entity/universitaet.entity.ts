@@ -19,7 +19,6 @@ import {
     Column,
     CreateDateColumn,
     Entity,
-    JoinColumn,
     OneToMany,
     OneToOne,
     PrimaryGeneratedColumn,
@@ -72,7 +71,6 @@ export class Universitaet {
     @OneToOne(() => Bibliothek, (bibliothek) => bibliothek.universitaet, {
         cascade: ['insert', 'remove'],
     })
-    @JoinColumn({ name: 'bibliothek_id' })
     readonly bibliothek: Bibliothek | undefined;
 
     @OneToMany(() => Kurs, (kurs) => kurs.universitaet, {
