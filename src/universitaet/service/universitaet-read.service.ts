@@ -1,5 +1,6 @@
 // Copyright (C) 2016 - present Juergen Zimmermann, Hochschule Karlsruhe
 // Copyright (C) 2024 - present Philip Neuffer
+// Copyright (C) 2024 - present Felix Jaeger
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -14,20 +15,25 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-// FIXME Mock Datenbank durch echte Datenbank ersetzen
-// TODO anbindung an Datenbank über TypeORM implementieren.
 /**
  * Das Modul besteht aus der Klasse {@linkcode UniversitaetReadService}
  * @packageDocumentation
  */
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { getLogger } from '../../logger/logger.js';
+import { QueryBuilder } from './query-builder.js';
 
 @Injectable()
 export class UniversitaetReadService {
     static readonly ID_PATTERN = /^[1-9]\d{0,10}$/u;
 
+    readonly #queryBuilder: QueryBuilder;
+
     readonly #logger = getLogger(UniversitaetReadService.name);
+
+    constructor(queryBuilder: QueryBuilder) {
+        this.#queryBuilder = queryBuilder;
+    }
 
     /**
      * Alle Universitaeten asynchron suchen.
@@ -35,11 +41,19 @@ export class UniversitaetReadService {
      */
     async findAll() {
         this.#logger.debug('findAll()');
-        // FIXME Nur für mocking sollte durch echten asynchronen aufruf ersetzt werden, sobnald echte DB vorhanden
-        // FIXME Mock Datenbank durch echte Datenbank ersetzen
-        const result = await mockDB;
-        this.#logger.debug('findAll() => %o', result);
-        return result;
+
+        const universitaeten = await this.#queryBuilder.build().getMany();
+        if (universitaeten.length === 0) {
+            this.#logger.debug('find: Keine Universitaeten gefunden');
+            throw new NotFoundException(`Keine Universitaeten gefunden`);
+        }
+        universitaeten.forEach((universitaet) => {
+            if (universitaet.fakultaeten === null) {
+                universitaet.fakultaeten = [];
+            }
+        });
+        this.#logger.debug('find: universitaeten=%o', universitaeten);
+        return universitaeten;
     }
 
     /**
@@ -51,24 +65,23 @@ export class UniversitaetReadService {
     async findByID(id: number) {
         this.#logger.debug('FindByID(%d)', id);
 
-        // FIXME Nur für mocking sollte durch echten asynchronen aufruf ersetzt werden, sobnald echte DB vorhanden
-        // FIXME Mock Datenbank durch echte Datenbank ersetzen
-        const result = await mockDB.find(
-            (universitaet) => universitaet.id === id,
-        );
-
-        // FIXME: Muss an QueryBuilder angepasst werden sobald die DB läuft
-        if (result === undefined) {
-            throw new NotFoundException('Die Universität wurde nicht gefunden');
+        const universitaet = await this.#queryBuilder.buildId({ id }).getOne();
+        if (universitaet === null) {
+            throw new NotFoundException(
+                `Es gibt keine Universität mit der ID ${id}.`,
+            );
+        }
+        if (universitaet.fakultaeten === null) {
+            universitaet.fakultaeten = [];
         }
 
         if (this.#logger.isLevelEnabled('debug')) {
             this.#logger.debug(
-                'FindByID(%s) => %o',
-                result.toString,
-                result.name,
+                'findById: universitaet=%s, titel=%o',
+                universitaet.toString(),
+                universitaet.name,
             );
         }
-        return result;
+        return universitaet;
     }
 }
