@@ -100,8 +100,8 @@ export class QueryBuilder {
      * Universitäten asynchron suchen.
      * @returns QueryBuilder
      */
-    // FIXME macht erst wirklich Sinn, wenn Flexible Querys implementiert sind
     // TODO für Suche mögliche fehlende Implementierung ergänzen
+    // FIXME bei Suche Alle wird diese Methode aufgerufen, somit muss diese auch implementiert werden
     build() {
         const queryBuilder = this.#repo.createQueryBuilder(
             this.#universiaetAlias,
