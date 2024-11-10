@@ -47,6 +47,7 @@ const passAdmin = (db?.passwordAdmin as string | undefined) ?? 'p';
 // https://github.com/tonivj5/typeorm-naming-strategies/blob/master/src/snake-naming.strategy.ts
 // https://github.com/typeorm/typeorm/blob/master/src/naming-strategy/DefaultNamingStrategy.ts
 // https://github.com/typeorm/typeorm/blob/master/sample/sample12-custom-naming-strategy/naming-strategy/CustomNamingStrategy.ts
+// FIXME Entweder entfernen oder Oracle in dbType aufnehmen --> fehlt stand jetzt dort
 const namingStrategy =
     dbType === 'oracle'
         ? new OracleNamingStrategy()
