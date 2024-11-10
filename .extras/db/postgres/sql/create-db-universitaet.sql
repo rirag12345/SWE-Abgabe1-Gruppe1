@@ -1,4 +1,5 @@
 -- Copyright (C) 2022 - present Juergen Zimmermann, Hochschule Karlsruhe
+-- Copyright (C) 2024 - present Philip Neuffer
 --
 -- This program is free software: you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
@@ -30,7 +31,7 @@
 --     cd .extras\compose\backend\postgres
 --     docker compose exec db bash
     --    chown postgres:postgres /var/lib/postgresql/tablespace
-    --    chown postgres:postgres /var/lib/postgresql/tablespace/buch
+    --    chown postgres:postgres /var/lib/postgresql/tablespace/universitaet
     --    chown postgres:postgres /var/lib/postgresql/key.pem
     --    chown postgres:postgres /var/lib/postgresql/certificate.crt
     --    chmod 400 /var/lib/postgresql/key.pem
