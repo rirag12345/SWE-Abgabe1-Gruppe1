@@ -15,7 +15,9 @@
 
 // FIXME: Wenn DB steht fehlende Imports ergänzen
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { UniversitaetGetController } from './controller/universitaet-get.controller.js';
+import { entities } from './entity/entities.js';
 import { UniversitaetReadService } from './service/universitaet-read.service.js';
 
 /**
@@ -29,7 +31,7 @@ import { UniversitaetReadService } from './service/universitaet-read.service.js'
  * Funktionalität für TypeORM.
  */
 @Module({
-    imports: [],
+    imports: [TypeOrmModule.forFeature(entities)],
     controllers: [UniversitaetGetController],
     // Provider sind z.B. Service-Klassen fuer DI
     providers: [UniversitaetReadService],
