@@ -29,12 +29,12 @@
 -- (3) 2. PowerShell:
 --     cd .extras\compose\backend\postgres
 --     docker compose exec db bash
---        chown postgres:postgres /var/lib/postgresql/tablespace
---        chown postgres:postgres /var/lib/postgresql/tablespace/buch
---        chown postgres:postgres /var/lib/postgresql/key.pem
---        chown postgres:postgres /var/lib/postgresql/certificate.crt
---        chmod 400 /var/lib/postgresql/key.pem
---        chmod 400 /var/lib/postgresql/certificate.crt
+    --    chown postgres:postgres /var/lib/postgresql/tablespace
+    --    chown postgres:postgres /var/lib/postgresql/tablespace/buch
+    --    chown postgres:postgres /var/lib/postgresql/key.pem
+    --    chown postgres:postgres /var/lib/postgresql/certificate.crt
+    --    chmod 400 /var/lib/postgresql/key.pem
+    --    chmod 400 /var/lib/postgresql/certificate.crt
 --        exit
 --     docker compose down
 -- (3) in compose.yml die obigen Kommentare wieder entfernen, d.h.
@@ -46,10 +46,10 @@
 --     docker compose up db
 -- (5) 2. PowerShell:
 --     docker compose exec db bash
-    --    psql --dbname=postgres --username=postgres --file=/sql/create-db-universitaet.sql
-    --    psql --dbname=universitaet --username=universitaet --file=/sql/create-schema-universitaet.sql
-    --    psql --dbname=postgres --username=postgres --file=/sql/create-db-sonar.sql
-    --    psql --dbname=sonar --username=sonar --file=/sql/create-schema-sonar.sql
+       psql --dbname=postgres --username=postgres --file=/sql/create-db-universitaet.sql
+       psql --dbname=universitaet --username=universitaet --file=/sql/create-schema-universitaet.sql
+       psql --dbname=postgres --username=postgres --file=/sql/create-db-sonar.sql
+       psql --dbname=sonar --username=sonar --file=/sql/create-schema-sonar.sql
 --        exit
 --      docker compose down
 
