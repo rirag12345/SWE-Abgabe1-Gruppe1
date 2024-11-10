@@ -21,7 +21,6 @@
  * @packageDocumentation
  */
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { mockDB } from '../../DB/mock-db.js';
 import { getLogger } from '../../logger/logger.js';
 
 @Injectable()
@@ -37,7 +36,7 @@ export class UniversitaetReadService {
     async findAll() {
         this.#logger.debug('findAll()');
         // FIXME Nur für mocking sollte durch echten asynchronen aufruf ersetzt werden, sobnald echte DB vorhanden
-        // eslint-disable-next-line @typescript-eslint/await-thenable
+        // FIXME Mock Datenbank durch echte Datenbank ersetzen
         const result = await mockDB;
         this.#logger.debug('findAll() => %o', result);
         return result;
@@ -53,7 +52,7 @@ export class UniversitaetReadService {
         this.#logger.debug('FindByID(%d)', id);
 
         // FIXME Nur für mocking sollte durch echten asynchronen aufruf ersetzt werden, sobnald echte DB vorhanden
-        // eslint-disable-next-line @typescript-eslint/await-thenable
+        // FIXME Mock Datenbank durch echte Datenbank ersetzen
         const result = await mockDB.find(
             (universitaet) => universitaet.id === id,
         );

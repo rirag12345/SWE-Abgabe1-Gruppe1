@@ -14,6 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+// FIXME Readservice fixen, um dann diesen Controller fixen zu können.
 /**
  * Modul für REST-Controller zum Lesen der REST-Schnittstelle.
  * @packageDocumentation
@@ -27,9 +28,9 @@ import {
     Param,
     Req,
     Res,
+    UseInterceptors,
 } from '@nestjs/common';
 import {
-    ApiBearerAuth,
     ApiHeader,
     ApiNotFoundResponse,
     ApiOkResponse,
@@ -39,11 +40,11 @@ import {
     ApiTags,
 } from '@nestjs/swagger';
 import { Request, Response } from 'express';
-import { Public } from 'nest-keycloak-connect';
 import { paths } from '../../config/paths.js';
 import { getLogger } from '../../logger/logger.js';
-import { Bibliothek } from '../entity/bibliothek.entity';
-import { Universitaet } from '../entity/universitaet.entity.js';
+import { ResponseTimeInterceptor } from '../../logger/response-time.interceptor.js';
+import { type Bibliothek } from '../entity/bibliothek.entity';
+import { type Universitaet } from '../entity/universitaet.entity.js';
 import { UniversitaetReadService } from '../service/universitaet-read.service.js';
 import { getBaseUri } from './getBaseUri.js';
 
@@ -98,8 +99,8 @@ const MIMETYPE = 'application/hal+json';
  * REST-Controller-Klasse für das Lesen von Universitäten.
  */
 @Controller(paths.rest)
+@UseInterceptors(ResponseTimeInterceptor)
 @ApiTags(`Universität REST API`)
-@ApiBearerAuth()
 export class UniversitaetGetController {
     readonly #service: UniversitaetReadService;
     readonly #logger = getLogger(UniversitaetGetController.name);
@@ -110,22 +111,20 @@ export class UniversitaetGetController {
     }
 
     @Get()
-    @Public()
     @ApiOperation({ summary: 'Suche aller Universitäten' })
     @ApiOkResponse({
         description: 'Eine evtl. leeres Json Array mit Universitäten',
     })
     async get(
-        // TODO Query-Parameter für Filterung und Sortierung
         @Req() req: Request,
         @Res() res: Response,
-    ) {
+    ): Promise<Response<UniversitaetModel | undefined>> {
         if (req.accepts([MIMETYPE, 'json', 'html']) === false) {
             this.#logger.debug('get: accepted=%o', req.accepted);
             return res.sendStatus(HttpStatus.NOT_ACCEPTABLE);
         }
 
-        const universitaeten = await this.#service.findAll();
+        const universitaeten= await this.#service.findAll();
         this.#logger.debug('get: universitaeten=%o', universitaeten);
 
         const universitaetenModel = universitaeten.map((universitaet) =>
@@ -135,11 +134,10 @@ export class UniversitaetGetController {
         const result: UniversitaetenModel = {
             _embedded: { universitaeten: universitaetenModel },
         };
-        return res.contentType(MIMETYPE).json(result);
+        return res.contentType(MIMETYPE).json(result).send();
     }
 
     @Get(':id')
-    @Public()
     @ApiOperation({ summary: `Suche mit id` })
     @ApiParam({
         name: 'id',
@@ -163,7 +161,7 @@ export class UniversitaetGetController {
         @Req() req: Request,
         @Headers(`If-None-Match`) version: string | undefined,
         @Res() res: Response,
-    ) {
+    ): Promise<Response<UniversitaetModel | undefined>> {
         this.#logger.debug(`getById(id=%s)`, idString);
         const id = Number(idString);
         if (!Number.isInteger(id)) {
