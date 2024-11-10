@@ -17,7 +17,6 @@
 import { afterAll, beforeAll, describe, expect, test } from '@jest/globals';
 import { HttpStatus } from '@nestjs/common';
 import axios, { type AxiosInstance, type AxiosResponse } from 'axios';
-import { isDate } from 'class-validator';
 import type { UniversitaetDTO } from '../../src/universitaet/controller/universitaetDTO.entity.js';
 import { UniversitaetReadService } from '../../src/universitaet/service/universitaet-read.service';
 import {
@@ -32,29 +31,25 @@ import {
 // T e s t d a t e n
 // -----------------------------------------------------------------------------
 const neueUniversitaet: UniversitaetDTO = {
-    name: 'Technische Universitaet Muenchen',
-    standort: 'Muenchen',
-    anzahlStudierende: 42_000,
-    homepage: 'https://www.tum.de',
-    gegruendet: 1868,
+    name: 'Technische Universitaet Berlin',
+    standort: 'Berlin',
+    anzahlStudierende: 35_000,
+    homepage: 'https://www.tu-berlin.de',
+    gegruendet: 1879,
     fakultaeten: ['Informatik', 'Maschinenbau', 'Elektrotechnik'],
-    ranking: 1,
+    ranking: 2,
     bibliothek: {
         name: 'Universitaetsbibliothek',
-        isil: 'DE-Mun1',
+        isil: 'DE-Ber1',
     },
     kurse: [
         {
-            titel: 'Informatik',
-            startDatum: isDate('2024-09-11')
-                ? new Date('2024-09-11')
-                : undefined,
+            titel: 'Einführung in die Informatik',
+            startDatum: new Date(`2023-04-01`),
         },
         {
-            titel: 'Maschinenbau',
-            startDatum: isDate('2023-04-01')
-                ? new Date('2023-04-01')
-                : undefined,
+            titel: 'Maschinelles Lernen',
+            startDatum: new Date(`2023-04-01`),
         },
     ],
 };
