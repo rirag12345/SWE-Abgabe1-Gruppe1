@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS universitaet (
     anzahl_studierende INTEGER,
     homepage TEXT,
     gegruendet INTEGER,
-    fakultaeten TEXT[],
+    fakultaeten TEXT,
     ranking INTEGER,
     erzeugt TIMESTAMP NOT NULL DEFAULT NOW(),
     aktualisiert TIMESTAMP NOT NULL DEFAULT NOW()

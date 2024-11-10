@@ -30,8 +30,8 @@ import type { ErrorResponse } from './error-response.js';
 // -----------------------------------------------------------------------------
 // T e s t d a t e n
 // -----------------------------------------------------------------------------
-const idVorhanden = '1';
-const idNichtVorhanden = '9999999999';
+const idVorhanden = '1000';
+const idNichtVorhanden = '999';
 // const idVorhandenETag = '1';
 const idFalsch = 'abc';
 
