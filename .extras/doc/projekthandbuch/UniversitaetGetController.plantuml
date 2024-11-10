@@ -1,0 +1,66 @@
+@startuml Controller-Klasse
+
+package @nestjs/common {
+  class "@Controller" as Controller
+  hide Controller circle
+
+  class "@Get" as Get
+  hide Get circle
+
+  class "@Req" as Req
+  hide Req circle
+
+  class "@Res" as Res
+  hide Res circle
+
+  class "@Param" as Param
+  hide Param circle
+
+  class "@Query" as Query
+  hide Query circle
+
+  class "@UseInterceptors" as UseInterceptors
+  hide UseInterceptors circle
+}
+
+package express {
+  class Request
+  class Response
+
+  Response .[hidden].> Controller
+}
+
+package universitaet {
+  package entity #FFFFFF {
+    class Universitaet <<entity>>
+    class Bibliothek <<entity>>
+    class Kurs <<entity>>
+  }
+
+  package service {
+    class UniversitaetReadService << control >>
+  }
+
+  package rest #DDDDDD {
+    UniversitaetQuery -up-|> Universitaet
+
+    class UniversitaetGetController << control >> << @Controller() >> << @UseInterceptors() >> {
+      + @Get() async getId(@Param() id: number, @Req() req: Request, @Headers() version: string, @Res() res: Response): UniversitaetModel | undefined
+      + @Get() async get(@Query() query: UniversitaetQuery, @Req() req: Request,  @Res() res: Response): UniversitaetenModel | undefined
+    }
+
+    UniversitaetGetController o--> "1" UniversitaetReadService : service
+
+    UniversitaetGetController ..> Controller
+    UniversitaetGetController ..> Request
+    UniversitaetGetController ..> Response
+    UniversitaetGetController .up.> UniversitaetModel
+    UniversitaetGetController .up.> UniversitaetQuery
+  }
+}
+
+hide empty members
+
+footer (c) Botan Coban
+
+@enduml
