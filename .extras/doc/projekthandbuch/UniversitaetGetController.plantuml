@@ -1,5 +1,5 @@
-' Copyright (C) 2023 - present Juergen Zimmermann, Hochschule Karlsruhe
-' Copyright (C) 2023 - present Botan Coban
+' Copyright (C) 2019 - present Juergen Zimmermann, Hochschule Karlsruhe
+' Copyright (C) 2019 - present Botan Coban
 '
 ' This program is free software: you can redistribute it and/or modify
 ' it under the terms of the GNU General Public License as published by
@@ -33,12 +33,6 @@ package @nestjs/common {
 
   class "@Param" as Param
   hide Param circle
-
-  class "@Query" as Query
-  hide Query circle
-
-  class "@UseInterceptors" as UseInterceptors
-  hide UseInterceptors circle
 }
 
 package express {
@@ -60,11 +54,9 @@ package universitaet {
   }
 
   package rest #DDDDDD {
-    UniversitaetQuery -up-|> Universitaet
-
-    class UniversitaetGetController << control >> << @Controller() >> << @UseInterceptors() >> {
-      + @Get() async getId(@Param() id: number, @Req() req: Request, @Headers() version: string, @Res() res: Response): UniversitaetModel | undefined
-      + @Get() async get(@Query() query: UniversitaetQuery, @Req() req: Request,  @Res() res: Response): UniversitaetenModel | undefined
+    class UniversitaetGetController << control >> << @Controller() >> {
+      + @Get() async get(@Req() req: Request, @Res() res: Response): UniversitaetenModel | undefined
+      + @Get() async getById(@Param() id: number, @Req() req: Request, @Headers() version: string, @Res() res: Response): UniversitaetModel | undefined
     }
 
     UniversitaetGetController o--> "1" UniversitaetReadService : service
@@ -73,7 +65,6 @@ package universitaet {
     UniversitaetGetController ..> Request
     UniversitaetGetController ..> Response
     UniversitaetGetController .up.> UniversitaetModel
-    UniversitaetGetController .up.> UniversitaetQuery
   }
 }
 
