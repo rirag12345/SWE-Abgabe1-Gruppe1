@@ -20,6 +20,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UniversitaetWriteController } from './controller/universitaaet-write.controller.js';
 import { UniversitaetGetController } from './controller/universitaet-get.controller.js';
 import { entities } from './entity/entities.js';
+import { QueryBuilder } from './service/query-builder.js';
 import { UniversitaetReadService } from './service/universitaet-read.service.js';
 import { UniversitaetWriteService } from './service/universitaet-write.service.js';
 
@@ -37,7 +38,11 @@ import { UniversitaetWriteService } from './service/universitaet-write.service.j
     imports: [TypeOrmModule.forFeature(entities)],
     controllers: [UniversitaetGetController, UniversitaetWriteController],
     // Provider sind z.B. Service-Klassen fuer DI
-    providers: [UniversitaetReadService, UniversitaetWriteService],
+    providers: [
+        UniversitaetReadService,
+        UniversitaetWriteService,
+        QueryBuilder,
+    ],
     // Export der Provider fuer DI in anderen Modulen
     exports: [UniversitaetReadService, UniversitaetWriteService],
 })
