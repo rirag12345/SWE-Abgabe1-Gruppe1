@@ -1,5 +1,6 @@
 // Copyright (C) 2016 - present Juergen Zimmermann, Hochschule Karlsruhe
 // Copyright (C) 2024 - present Philip Neuffer
+// Copyright (C) 2024 - present Felix Jaeger
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -14,7 +15,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-// FIXME Readservice fixen, um dann diesen Controller fixen zu können.
 /**
  * Modul für REST-Controller zum Lesen der REST-Schnittstelle.
  * @packageDocumentation
@@ -124,7 +124,7 @@ export class UniversitaetGetController {
             return res.sendStatus(HttpStatus.NOT_ACCEPTABLE);
         }
 
-        const universitaeten= await this.#service.findAll();
+        const universitaeten = await this.#service.findAll();
         this.#logger.debug('get: universitaeten=%o', universitaeten);
 
         const universitaetenModel = universitaeten.map((universitaet) =>
