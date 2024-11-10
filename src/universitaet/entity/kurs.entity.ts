@@ -35,19 +35,6 @@ export class Kurs {
     @ManyToOne(() => Universitaet, (universitaet) => universitaet.kurse)
     universitaet: Universitaet | undefined;
 
-    // FIXME kann später weg, nur für DB mocking
-    constructor(
-        id: number,
-        titel: string,
-        startDatum: Date | undefined,
-        universitaet: Universitaet | undefined,
-    ) {
-        this.id = id;
-        this.titel = titel;
-        this.startDatum = startDatum;
-        this.universitaet = universitaet;
-    }
-
     public toString = (): string =>
         JSON.stringify({
             id: this.id,
