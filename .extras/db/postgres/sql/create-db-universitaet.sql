@@ -78,4 +78,4 @@ CREATE DATABASE universitaet;
 
 GRANT ALL ON DATABASE universitaet TO universitaet;
 
-CREATE TABLESPACE universitaetspace OWNER universitaet LOCATION '/var/lib/postgresql/universitaet';
+CREATE TABLESPACE universitaetspace OWNER universitaet LOCATION '/var/lib/postgresql/tablespace/universitaet';
