@@ -78,5 +78,8 @@ snyk-*.log
 !.vscode/launch.json
 !.vscode/extensions.json
 
-#linux paths
+# linux paths
 .extras/compose/backend/postgres/docker-compose.override.yml
+
+# jest Snapshots
+__tests__/universitaet/__snapshots__
