@@ -18,6 +18,8 @@
 
 @startuml Controller-Klasse
 
+interface Promise<T>
+
 package @nestjs/common {
   class "@Controller" as Controller
   hide Controller circle
@@ -33,13 +35,16 @@ package @nestjs/common {
 
   class "@Body" as Body
   hide Body circle
+
+  class "@UseInterceptors" as UseInterceptors
+  hide UseInterceptors circle
 }
 
 package express {
   class Request
   class Response
 
-  Response .[hidden].> Controller
+  Response .right[hidden].> Controller
 }
 
 package universitaet {
@@ -47,6 +52,9 @@ package universitaet {
     class Universitaet <<entity>>
     class Bibliothek <<entity>>
     class Kurs <<entity>>
+
+    Universitaet .[hidden].> Promise
+    Universitaet .[hidden].> Request
   }
 
   package service {
@@ -54,7 +62,7 @@ package universitaet {
   }
 
   package rest #DDDDDD {
-    class UniversitaetWriteController << control >> << @Controller() >> {
+    class UniversitaetWriteController << control >> << @Controller() >> << @UseInterceptors() >> {
       + @Post() async post(@Body() universitaetDTO: UniversitaetDTO, @Req() req: Request, @Res() res: Response): Promise<Response>
     }
 
@@ -63,7 +71,10 @@ package universitaet {
     UniversitaetWriteController ..> Controller
     UniversitaetWriteController ..> Request
     UniversitaetWriteController ..> Response
-    UniversitaetWriteController ..> UniversitaetDTO
+    UniversitaetWriteController ..> Body
+    UniversitaetWriteController ..> UseInterceptors
+    UniversitaetWriteController ..> Promise
+    UniversitaetWriteController .up.> UniversitaetDTO
   }
 }
 
