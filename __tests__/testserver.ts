@@ -1,5 +1,4 @@
 // Copyright (C) 2016 - present Juergen Zimmermann, Hochschule Karlsruhe
-// Copyright (C) 2024 - present Philip Neuffer
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -16,8 +15,8 @@
 
 import {
     HttpStatus,
-    type INestApplication,
     ValidationPipe,
+    type INestApplication,
 } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import compose from 'docker-compose';
@@ -94,6 +93,7 @@ const shutdownDbServer = async () => {
         log: true,
     });
 };
+
 // -----------------------------------------------------------------------------
 // T e s t s e r v e r   m i t   H T T P S
 // -----------------------------------------------------------------------------
@@ -108,10 +108,11 @@ export const startServer = async () => {
         console.info('DB-Server muss gestartet werden.');
         await startDbServer();
     }
+
     server = await NestFactory.create(AppModule, {
         httpsOptions,
-        logger: ['log'],
-        // logger: ['debug'],
+        // logger: ['log'],
+        // // logger: ['debug'],
     });
     server.useGlobalPipes(
         new ValidationPipe({

@@ -1,3 +1,5 @@
+// eslint-disable-next-line @eslint-community/eslint-comments/disable-enable-pair
+/* eslint-disable max-lines-per-function */
 // Copyright (C) 2016 - present Juergen Zimmermann, Hochschule Karlsruhe
 // Copyright (C) 2024 - present Philip Neuffer
 //
@@ -60,7 +62,7 @@ const neueUniversitaetInvalid: UniversitaetDTO = {
     anzahlStudierende: -1000, // Verletzt @Min(0)
     homepage: 'keine-gueltige-url', // Verletzt @IsUrl
     gegruendet: 1879,
-    fakultaeten: ['Informatik', 'Informatik', 'Informatik'], // Verletzt @ArrayUnique
+    fakultaeten: ['Informatik', 'Maschinenbau', 'Elektrotechnik'],
     ranking: 2.5, // Verletzt @IsInt
     bibliothek: {
         name: '', // Leerer Name - sollte nicht erlaubt sein
@@ -135,6 +137,34 @@ describe('POST /rest', () => {
     });
 
     test('Neue Universitaet anlegen - ungueltige Daten', async () => {
-        //given 
+        // given
+        // TODO Keycloak-Token holen
+        // const token = await tokenRest(client);
+        // headers.Authorization = `Bearer ${token}`;
+
+        const expectedMsg = [
+            expect.stringMatching(/^anzahlStudierende /u),
+            expect.stringMatching(/^homepage /u),
+            expect.stringMatching(/^ranking /u),
+        ];
+
+        // when
+        const response: AxiosResponse<Record<string, any>> = await client.post(
+            '/rest',
+            neueUniversitaetInvalid,
+            { headers },
+        );
+
+        // then
+        const { status, data } = response;
+
+        expect(status).toBe(HttpStatus.UNPROCESSABLE_ENTITY);
+
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        const messages: string[] = data.message;
+
+        expect(messages).toBeDefined();
+        expect(messages).toHaveLength(expectedMsg.length);
+        expect(messages).toEqual(expect.arrayContaining(expectedMsg));
     });
 });
