@@ -40,8 +40,11 @@ package universitaet {
   }
 
   package service #DDDDDD {
+    class NameExistsException
+
     class UniversitaetWriteService << control >> <<@Injectable()>> {
       + async create(universitaet: Universitaet): Promise<number>
+      - async #validateCreate(universitaet: Universitaet): Promise<void>
     }
 
     UniversitaetWriteService o--> "1" Repository: @InjectRepository repo
@@ -51,6 +54,7 @@ package universitaet {
     UniversitaetWriteService .up.> InjectRepository
     UniversitaetWriteService .up.> Promise
     UniversitaetWriteService ..> Universitaet
+    UniversitaetWriteService .up.> NameExistsException
   }
 }
 
