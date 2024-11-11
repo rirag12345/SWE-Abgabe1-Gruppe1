@@ -13,8 +13,6 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
-
-// FIXME: Wenn DB steht fehlende Imports ergänzen
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UniversitaetWriteController } from './controller/universitaaet-write.controller.js';

@@ -54,7 +54,25 @@ const neueUniversitaet: UniversitaetDTO = {
     ],
 };
 
-// TODO Testfälle für Ungültige Universitäten
+const neueUniversitaetInvalid: UniversitaetDTO = {
+    name: '', // Leerer Name - sollte nicht erlaubt sein
+    standort: 'Berlin',
+    anzahlStudierende: -1000, // Verletzt @Min(0)
+    homepage: 'keine-gueltige-url', // Verletzt @IsUrl
+    gegruendet: 1879,
+    fakultaeten: ['Informatik', 'Informatik', 'Informatik'], // Verletzt @ArrayUnique
+    ranking: 2.5, // Verletzt @IsInt
+    bibliothek: {
+        name: '', // Leerer Name - sollte nicht erlaubt sein
+        isil: '', // Leerer ISIL
+    },
+    kurse: [
+        {
+            titel: '', // Leerer Titel
+            startDatum: new Date('invalid-date'), // Ungültiges Datum
+        },
+    ],
+};
 
 // -----------------------------------------------------------------------------
 // T e s t s
@@ -114,5 +132,9 @@ describe('POST /rest', () => {
         expect(UniversitaetReadService.ID_PATTERN.test(idStr)).toBe(true);
 
         expect(data).toBe('');
+    });
+
+    test('Neue Universitaet anlegen - ungueltige Daten', async () => {
+        //given 
     });
 });

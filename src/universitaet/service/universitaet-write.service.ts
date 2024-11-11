@@ -21,7 +21,6 @@ import { getLogger } from '../../logger/logger.js';
 import { Universitaet } from '../entity/universitaet.entity.js';
 import { NameExistsException } from './exceptions.js';
 
-// TODO Herausfinden ob EmailService gebraucht wird, falls ja hinzufügen
 /**
  * Die Klasse `UniversitaetWriteService` stellt die Geschäftslogik
  * für das Schreiben von Universitäten bereit und greift mittels TypeORM aud die Datenbank zu.

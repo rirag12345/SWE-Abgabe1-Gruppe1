@@ -32,7 +32,7 @@ import type { ErrorResponse } from './error-response.js';
 // -----------------------------------------------------------------------------
 const idVorhanden = '1000';
 const idNichtVorhanden = '999';
-// const idVorhandenETag = '1';
+const idVorhandenETag = '1000';
 const idFalsch = 'abc';
 
 // -----------------------------------------------------------------------------
@@ -106,5 +106,19 @@ describe('GET /rest/:id', () => {
 
         expect(error).toBe(`Not Found`);
         expect(status).toBe(HttpStatus.NOT_FOUND);
+    });
+
+    test('Universitaet zu vorhandener ID mit ETag', async () => {
+        // given
+        const url = `/${idVorhandenETag}`;
+
+        // when
+        const { status, data }: AxiosResponse<string> = await client.get(url, {
+            headers: { 'If-None-Match': '"1"' }, // eslint-disable-line @typescript-eslint/naming-convention
+        });
+
+        // then
+        expect(status).toBe(HttpStatus.NOT_MODIFIED);
+        expect(data).toBe('');
     });
 });
