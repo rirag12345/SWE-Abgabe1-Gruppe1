@@ -31,11 +31,14 @@ package universitaet {
   }
 
   package service #DDDDDD {
+    class QueryBuilder
+
     class UniversitaetReadService << control >> <<@Injectable()>> {
       + async findAll(): Promise<Universitaet[]>
       + async findByID(id: number): Promise<Universitaet | undefined>
     }
 
+    UniversitaetReadService o--> "1" QueryBuilder : queryBuilder
     UniversitaetReadService .up.> Injectable
     UniversitaetReadService .up.> Promise
     UniversitaetReadService ..> Universitaet
