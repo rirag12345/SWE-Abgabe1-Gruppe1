@@ -68,7 +68,7 @@ export class UniversitaetReadService {
         const universitaet = await this.#queryBuilder.buildId({ id }).getOne();
         if (universitaet === null) {
             throw new NotFoundException(
-                `Es gibt keine Universität mit der ID ${id}.`,
+                `Es gibt keine Universitaet mit der ID ${id}.`,
             );
         }
         if (universitaet.fakultaeten === null) {
