@@ -1,5 +1,6 @@
 // Copyright (C) 2016 - present Juergen Zimmermann, Hochschule Karlsruhe
 // Copyright (C) 2024 - present Philip Neuffer
+// Copyright (C) 2024 - present Felix Jaeger
 
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -14,6 +15,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+// TODO HelmetHandler implementieren, sobald verfügbar
 import { type INestApplication, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import {
@@ -28,10 +30,8 @@ import { nodeConfig } from './config/node.js';
 import { paths } from './config/paths.js';
 // import { helmetHandlers } from './security/http/helmet.handler.js';
 
-// Destructuring ab ES 2015
 const { httpsOptions, port } = nodeConfig;
 
-// "Arrow Function" ab ES 2015
 const setupSwagger = (app: INestApplication) => {
     const config = new DocumentBuilder()
         .setTitle('Universität')
@@ -46,11 +46,11 @@ const setupSwagger = (app: INestApplication) => {
 
 const bootstrap = async () => {
     const app = await NestFactory.create(AppModule, { httpsOptions });
-    // TODO später HelmetHandlers
+    // TODO später HelmetHandlers hinzufügen
+    // app.use(helmetHandlers, compression());
     app.use(compression());
     app.useGlobalPipes(new ValidationPipe());
     setupSwagger(app);
-    // cors von Express fuer CORS (= cross origin resource sharing)
     app.enableCors(corsOptions);
     await app.listen(port);
 };
