@@ -44,6 +44,7 @@ entity "Bibliothek" {
   --
   * name: text
   * isil: text
+  * **universitaet_id**: integer <<FK>>
 }
 
 entity "Kurs" {
