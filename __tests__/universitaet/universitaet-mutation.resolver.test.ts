@@ -63,21 +63,27 @@ describe('GraphQL Mutations', () => {
                 mutation {
                     create(
                         input: {
-                            name: "Beispiel Universität",
-                            standort: "Beispielort",
-                            anzahlStudierende: 42_000,
-                            homepage: "https://www.beispiel.de",
-                            gegruendet: 2024,
+                            name: "Technische Universitaet Berlin",
+                            standort: "Berlin",
+                            anzahlStudierende: 35000,
+                            homepage: "https://www.tu-berlin.de",
+                            gegruendet: 1879,
                             fakultaeten: ["Informatik", "Maschinenbau", "Elektrotechnik"],
-                            ranking: 1,
+                            ranking: 2,
                             bibliothek: {
-                                name: "Hauptbibliothek",
-                                isil: "DE-123"
+                                name: "Universitaetsbibliothek",
+                                isil: "DE-Ber1"
                             },
-                            kurse: [{
-                                titel: "Informatik 101",
-                                startDatum: "2023-09-01"
-                            }]
+                            kurse: [
+                                {
+                                    titel: "Einführung in die Informatik",
+                                    startDatum: "2023-04-01"
+                                },
+                                {
+                                    titel: "Maschinelles Lernen",
+                                    startDatum: "2023-04-01"
+                                }
+                            ]
                         }
                     ) {
                         id
