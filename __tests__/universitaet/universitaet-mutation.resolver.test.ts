@@ -17,6 +17,7 @@
 /* eslint-disable @eslint-community/eslint-comments/disable-enable-pair */
 /* eslint-disable max-lines-per-function */
 
+// FIXME graphQL fehler beheben
 import { type GraphQLRequest } from '@apollo/server';
 import { afterAll, beforeAll, describe, expect, test } from '@jest/globals';
 import { HttpStatus } from '@nestjs/common';
