@@ -1,5 +1,6 @@
 // Copyright (C) 2021 - present Juergen Zimmermann, Hochschule Karlsruhe
 // Copyright (C) 2024 - present Philip Neuffer
+// Copyright (C) 2024 - present Felix Jaeger
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -13,11 +14,16 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+// TODO Keykloak implementieren, wenn verfügbar
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+// import { KeycloakModule } from '../security/keycloak/keycloak.module.js';
 import { UniversitaetWriteController } from './controller/universitaaet-write.controller.js';
 import { UniversitaetGetController } from './controller/universitaet-get.controller.js';
 import { entities } from './entity/entities.js';
+import { UniversitaetMutationResolver } from './resolver/universitaet-mutation.resolver.js';
+import { UniversitaetQueryResolver } from './resolver/universitaet-query.resolver.js';
 import { QueryBuilder } from './service/query-builder.js';
 import { UniversitaetReadService } from './service/universitaet-read.service.js';
 import { UniversitaetWriteService } from './service/universitaet-write.service.js';
@@ -35,13 +41,13 @@ import { UniversitaetWriteService } from './service/universitaet-write.service.j
 @Module({
     imports: [TypeOrmModule.forFeature(entities)],
     controllers: [UniversitaetGetController, UniversitaetWriteController],
-    // Provider sind z.B. Service-Klassen fuer DI
     providers: [
         UniversitaetReadService,
         UniversitaetWriteService,
+        UniversitaetQueryResolver,
+        UniversitaetMutationResolver,
         QueryBuilder,
     ],
-    // Export der Provider fuer DI in anderen Modulen
     exports: [UniversitaetReadService, UniversitaetWriteService],
 })
 export class UniversitaetModule {}
