@@ -16,12 +16,14 @@
 
 /* eslint-disable @eslint-community/eslint-comments/disable-enable-pair */
 /* eslint-disable max-lines-per-function */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
 import { type GraphQLRequest } from '@apollo/server';
 import { afterAll, beforeAll, describe, expect, test } from '@jest/globals';
 import { HttpStatus } from '@nestjs/common';
 import axios, { type AxiosInstance, type AxiosResponse } from 'axios';
 import { type GraphQLFormattedError } from 'graphql';
+import { type Universitaet } from '../../src/universitaet/entity/universitaet.entity.js';
 import {
     host,
     httpsAgent,
@@ -35,10 +37,21 @@ export type GraphQLResponseBody = {
     errors?: readonly [GraphQLFormattedError];
 };
 
-const graphqlPath = 'graphql';
+type UniversitaetDTO = Omit<Universitaet, 'kurse' | 'aktualisiert' | 'erzeugt'>;
 
+// -----------------------------------------------------------------------------
+// T e s t d a t e n
+// -----------------------------------------------------------------------------
+const idVorhanden = '1000';
+const idNichtVorhanden = '999999';
+
+// -----------------------------------------------------------------------------
+// T e s t s
+// -----------------------------------------------------------------------------
+// Test-Suite
 describe('GraphQL Queries', () => {
     let client: AxiosInstance;
+    const graphqlPath = 'graphql';
 
     beforeAll(async () => {
         await startServer();
@@ -56,12 +69,11 @@ describe('GraphQL Queries', () => {
 
     test('Universitaet zu vorhandener ID', async () => {
         // given
-        const id = 1001;
-        const body = {
+        const body: GraphQLRequest = {
             query: `
                 query {
-                    universitaet(id: ${id}) {
-                        id
+                    universitaet(id: ${idVorhanden}) {
+                        version
                         name
                         standort
                         anzahlStudierende
@@ -71,11 +83,6 @@ describe('GraphQL Queries', () => {
                         ranking
                         bibliothek {
                             name
-                            isil
-                        }
-                        kurse {
-                            titel
-                            startDatum
                         }
                     }
                 }
@@ -91,24 +98,34 @@ describe('GraphQL Queries', () => {
         expect(headers['content-type']).toMatch(/json/iu);
         expect(data.errors).toBeUndefined();
         expect(data.data).toBeDefined();
-        expect(data.data!.universitaet).toBeDefined();
+
+        const { universitaet } = data.data!;
+        const result: UniversitaetDTO = universitaet;
+
+        expect(result.bibliothek?.name).toMatch(/^\w/u);
+        expect(result.version).toBeGreaterThan(-1);
+        expect(result.id).toBeUndefined();
     });
 
     test('Universitaet zu nicht-vorhandener ID', async () => {
-        const id = '999999';
+        // given
         const body: GraphQLRequest = {
             query: `
                 {
-                    universitaet(id: "${id}") {
-                        name
+                    universitaet(id: "${idNichtVorhanden}") {
+                        bibliothek {
+                            name
+                        }
                     }
                 }
             `,
         };
 
+        // when
         const { status, headers, data }: AxiosResponse<GraphQLResponseBody> =
             await client.post(graphqlPath, body);
 
+        // then
         expect(status).toBe(HttpStatus.OK);
         expect(headers['content-type']).toMatch(/json/iu);
         expect(data.data!.universitaet).toBeNull();
@@ -120,7 +137,9 @@ describe('GraphQL Queries', () => {
         const [error] = errors!;
         const { message, path, extensions } = error;
 
-        expect(message).toBe(`Es gibt keine Universitaet mit der ID ${id}.`);
+        expect(message).toBe(
+            `Es gibt keine Universitaet mit der ID ${idNichtVorhanden}.`,
+        );
         expect(path).toBeDefined();
         expect(path![0]).toBe('universitaet');
         expect(extensions).toBeDefined();

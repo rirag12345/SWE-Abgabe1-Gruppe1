@@ -22,9 +22,9 @@ import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { getLogger } from '../../logger/logger.js';
 import { ResponseTimeInterceptor } from '../../logger/response-time.interceptor.js';
 import { UniversitaetDTO } from '../controller/universitaetDTO.entity.js';
-import { Bibliothek } from '../entity/bibliothek.entity.js';
-import { Kurs } from '../entity/kurs.entity.js';
-import { Universitaet } from '../entity/universitaet.entity.js';
+import { type Bibliothek } from '../entity/bibliothek.entity.js';
+import { type Kurs } from '../entity/kurs.entity.js';
+import { type Universitaet } from '../entity/universitaet.entity.js';
 import { UniversitaetWriteService } from '../service/universitaet-write.service.js';
 import { HttpExceptionFilter } from './http-exception.filter.js';
 
@@ -47,11 +47,8 @@ export class UniversitaetMutationResolver {
 
     @Mutation()
     // @Roles({ roles: ['admin', 'user'] })
-    async createUniversitaet(@Args('input') universitaetDTO: UniversitaetDTO) {
-        this.#logger.debug(
-            'createUniversitaet: universitaetDTO=%o',
-            universitaetDTO,
-        );
+    async create(@Args('input') universitaetDTO: UniversitaetDTO) {
+        this.#logger.debug('create: universitaetDTO=%o', universitaetDTO);
 
         const universitaet =
             this.#universitaetDtoToUniversitaet(universitaetDTO);
@@ -98,9 +95,6 @@ export class UniversitaetMutationResolver {
 
         // Rueckwaertsverweise
         universitaet.bibliothek.universitaet = universitaet;
-        universitaet.kurse?.forEach((kurs) => {
-            kurs.universitaet = universitaet;
-        });
         return universitaet;
     }
 }

@@ -41,7 +41,7 @@ export class UniversitaetQueryResolver {
 
     @Query('universitaet')
     // @Public()
-    async findById(@Args('id') id: number) {
+    async findById(@Args() { id }: IdInput) {
         this.#logger.debug('findById: id=%d', id);
 
         const universitaet = await this.#service.findByID(id);

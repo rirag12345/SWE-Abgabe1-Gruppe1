@@ -15,6 +15,7 @@
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 /* eslint-disable @eslint-community/eslint-comments/disable-enable-pair */
+/* eslint-disable max-lines-per-function */
 
 import { type GraphQLRequest } from '@apollo/server';
 import { afterAll, beforeAll, describe, expect, test } from '@jest/globals';
@@ -40,7 +41,6 @@ describe('GraphQL Mutations', () => {
     let client: AxiosInstance;
     const graphqlPath = 'graphql';
 
-    // Testserver starten und dabei mit der DB verbinden
     beforeAll(async () => {
         await startServer();
         const baseURL = `https://${host}:${port}/`;
@@ -60,23 +60,26 @@ describe('GraphQL Mutations', () => {
         const body: GraphQLQuery = {
             query: `
                 mutation {
-                    createUniversitaet(input: {
-                        name: "Beispiel Universität",
-                        gegruendet: "2023-01-01",
-                        ranking: 1,
-                        bibliothek: {
-                            name: "Hauptbibliothek",
-                            isil: "DE-123"
-                        },
-                        kurse: [
-                            {
+                    create(
+                        input: {
+                            name: "Beispiel Universität",
+                            standort: "Beispielort",
+                            anzahlStudierende: 42_000,
+                            homepage: "https://www.beispiel.de",
+                            gegruendet: 2024,
+                            fakultaeten: ["Informatik", "Maschinenbau", "Elektrotechnik"],
+                            ranking: 1,
+                            bibliothek: {
+                                name: "Hauptbibliothek",
+                                isil: "DE-123"
+                            },
+                            kurse: [{
                                 titel: "Informatik 101",
                                 startDatum: "2023-09-01"
-                            }
-                        ]
-                    }) {
+                            }]
+                        }
+                    ) {
                         id
-                        name
                     }
                 }
             `,
@@ -89,6 +92,11 @@ describe('GraphQL Mutations', () => {
         // then
         expect(status).toBe(HttpStatus.OK);
         expect(headers['content-type']).toMatch(/json/iu);
-        expect(data.data!.createUniversitaet).toBeDefined();
+        expect(data.data).toBeDefined();
+
+        const { create } = data.data!;
+
+        expect(create).toBeDefined();
+        expect(create.id).toBeGreaterThan(0);
     });
 });

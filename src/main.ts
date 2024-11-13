@@ -48,7 +48,7 @@ const bootstrap = async () => {
     const app = await NestFactory.create(AppModule, { httpsOptions });
     // TODO später HelmetHandlers hinzufügen
     // app.use(helmetHandlers, compression());
-    app.use(compression());
+    app.use(compression()); // später durch helmetHandlers mit compression ersetzens
     app.useGlobalPipes(new ValidationPipe());
     setupSwagger(app);
     app.enableCors(corsOptions);

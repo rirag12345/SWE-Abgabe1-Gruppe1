@@ -14,8 +14,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-# siehe app.module.ts
-
 schema {
   query: Query
   mutation: Mutation
@@ -29,7 +27,7 @@ type Query {
 
 "Funktionen, um Universitäten neu anzulegen"
 type Mutation {
-  createUniversitaet (input: UniversitaetInput!): CreatePayload
+  create (input: UniversitaetInput!): CreatePayload
 }
 
 "Daten zur Bibliothek einer Universität"
@@ -41,7 +39,7 @@ type Bibliothek {
 "Daten zum Kurs einer Universität"
 type Kurs {
   titel: String!
-  startDatum: String!
+  startDatum: String
 }
 
 "Datenschema zu einer Universität, das gelesen wird"
@@ -61,9 +59,13 @@ type Universitaet {
 "Input-Daten für eine neue Universität"
 input UniversitaetInput {
   name: String!
-  gegruendet: String!
+  standort: String
+  anzahlStudierende: Int
+  homepage: String
+  gegruendet: Int
+  fakultaeten: [String]
   ranking: Int
-  bibliothek: BibliothekInput
+  bibliothek: BibliothekInput!
   kurse: [KursInput!]
 }
 
@@ -81,6 +83,5 @@ input KursInput {
 
 "Rückgabedaten nach dem Anlegen einer Universität"
 type CreatePayload {
-  id: ID!
-  name: String!
+  id: Int
 }
