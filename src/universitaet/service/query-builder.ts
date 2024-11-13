@@ -55,7 +55,6 @@ export class QueryBuilder {
 
     readonly #logger = getLogger(QueryBuilder.name);
 
-    // FIXME Kurse ist eine Liste, daher muss KurseAlias evtl. noch angepasst werden --> hat er aber auch nicht
     readonly #kursAlias = `${Kurs.name.charAt(0).toLowerCase()}${Kurs.name.slice(1)}`;
 
     readonly #repo: Repository<Universitaet>;
