@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-// TODO keycloak und admin Module importieren, sobald verfügbar
+// TODO Admin Modul einbinden, wenn verfügbar
 import { type ApolloDriverConfig } from '@nestjs/apollo';
 import {
     type MiddlewareConsumer,
@@ -30,10 +30,10 @@ import { graphQlModuleOptions } from './config/graphql.js';
 import { typeOrmModuleOptions } from './config/typeormOptions.js';
 import { LoggerModule } from './logger/logger.module.js';
 import { RequestLoggerMiddleware } from './logger/request-logger.middleware.js';
+import { KeycloakModule } from './security/keycloak/keycloak.module.js';
 import { UniversitaetWriteController } from './universitaet/controller/universitaaet-write.controller.js';
 import { UniversitaetGetController } from './universitaet/controller/universitaet-get.controller.js';
 import { UniversitaetModule } from './universitaet/universitaet.module.js';
-// import { KeycloakModule } from './security/keycloak/keycloak.module.js';
 
 @Module({
     imports: [
@@ -41,6 +41,7 @@ import { UniversitaetModule } from './universitaet/universitaet.module.js';
         DevModule,
         GraphQLModule.forRoot<ApolloDriverConfig>(graphQlModuleOptions),
         LoggerModule,
+        KeycloakModule,
         TypeOrmModule.forRoot(typeOrmModuleOptions),
     ],
 })

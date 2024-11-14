@@ -14,11 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-// TODO security implementieren, wenn verfügbar
-// import { UseGuards } from '@nestjs/common';
-import { UseFilters, UseInterceptors } from '@nestjs/common';
+import { UseFilters, UseGuards, UseInterceptors } from '@nestjs/common';
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
-// import { AuthGuard, Roles } from 'nest-keycloak-connect';
+import { AuthGuard, Roles } from 'nest-keycloak-connect';
 import { getLogger } from '../../logger/logger.js';
 import { ResponseTimeInterceptor } from '../../logger/response-time.interceptor.js';
 import { UniversitaetDTO } from '../controller/universitaetDTO.entity.js';
@@ -33,7 +31,7 @@ export type CreatePayload = {
 };
 
 @Resolver('Universitaet')
-// @UseGuards(AuthGuard)
+@UseGuards(AuthGuard)
 @UseFilters(HttpExceptionFilter)
 @UseInterceptors(ResponseTimeInterceptor)
 export class UniversitaetMutationResolver {
@@ -46,7 +44,7 @@ export class UniversitaetMutationResolver {
     }
 
     @Mutation()
-    // @Roles({ roles: ['admin', 'user'] })
+    @Roles({ roles: ['admin', 'user'] })
     async create(@Args('input') universitaetDTO: UniversitaetDTO) {
         this.#logger.debug('create: universitaetDTO=%o', universitaetDTO);
 

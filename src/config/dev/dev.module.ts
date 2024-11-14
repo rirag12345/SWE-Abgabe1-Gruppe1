@@ -16,15 +16,13 @@
 
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-// TODO import KeycloakModule hinzufügen, sobald es existiert
-// import { KeycloakModule } from '../../security/keycloak/keycloak.module.js';
+import { KeycloakModule } from '../../security/keycloak/keycloak.module.js';
 import { Universitaet } from '../../universitaet/entity/universitaet.entity.js';
 import { DbPopulateService } from './db-populate.service.js';
 import { DevController } from './dev.controller.js';
 
-// TODO import KeycloakModule hinzufügen, sobald es existiert
 @Module({
-    imports: [TypeOrmModule.forFeature([Universitaet])],
+    imports: [KeycloakModule, TypeOrmModule.forFeature([Universitaet])],
     controllers: [DevController],
     providers: [DbPopulateService],
     exports: [DbPopulateService],

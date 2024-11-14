@@ -15,10 +15,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-// TODO Keykloak implementieren, wenn verfügbar
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-// import { KeycloakModule } from '../security/keycloak/keycloak.module.js';
+import { KeycloakModule } from '../security/keycloak/keycloak.module.js';
 import { UniversitaetWriteController } from './controller/universitaaet-write.controller.js';
 import { UniversitaetGetController } from './controller/universitaet-get.controller.js';
 import { entities } from './entity/entities.js';
@@ -39,7 +38,7 @@ import { UniversitaetWriteService } from './service/universitaet-write.service.j
  * Funktionalität für TypeORM.
  */
 @Module({
-    imports: [TypeOrmModule.forFeature(entities)],
+    imports: [KeycloakModule, TypeOrmModule.forFeature(entities)],
     controllers: [UniversitaetGetController, UniversitaetWriteController],
     providers: [
         UniversitaetReadService,

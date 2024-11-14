@@ -21,7 +21,7 @@
 import dotenv from 'dotenv';
 import process from 'node:process';
 
-// TODO: node --env-file .env
+// zimmermannTODO: node --env-file .env
 // Umgebungsvariable aus .env einlesen
 dotenv.config();
 

@@ -28,6 +28,9 @@ type Query {
 "Funktionen, um Universitäten neu anzulegen"
 type Mutation {
   create (input: UniversitaetInput!): CreatePayload
+
+  token(username: String!, password: String!): TokenResult
+  refresh(refresh_token: String!): TokenResult
 }
 
 "Daten zur Bibliothek einer Universität"
@@ -84,4 +87,11 @@ input KursInput {
 "Rückgabedaten nach dem Anlegen einer Universität"
 type CreatePayload {
   id: Int
+}
+
+type TokenResult {
+  access_token: String!
+  expires_in: Int!
+  refresh_token: String!
+  refresh_expires_in: Int!
 }

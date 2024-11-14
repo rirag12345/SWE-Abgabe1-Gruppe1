@@ -29,6 +29,7 @@ import {
     shutdownServer,
     startServer,
 } from '../testserver.js';
+import { tokenRest } from '../token.js';
 
 // -----------------------------------------------------------------------------
 // T e s t d a t e n
@@ -104,9 +105,8 @@ describe('POST /rest', () => {
 
     test('Neue Universitaet anlegen', async () => {
         // given
-        // TODO Keycloak-Token holen
-        // const token = await tokenRest(client);
-        // headers.Authorization = `Bearer ${token}`;
+        const token = await tokenRest(client);
+        headers.Authorization = `Bearer ${token}`;
 
         // when
         const response: AxiosResponse<string> = await client.post(
@@ -139,9 +139,8 @@ describe('POST /rest', () => {
 
     test('Neue Universitaet anlegen - ungueltige Daten', async () => {
         // given
-        // TODO Keycloak-Token holen
-        // const token = await tokenRest(client);
-        // headers.Authorization = `Bearer ${token}`;
+        const token = await tokenRest(client);
+        headers.Authorization = `Bearer ${token}`;
 
         const expectedMsg = [
             expect.stringMatching(/^anzahlStudierende /u),

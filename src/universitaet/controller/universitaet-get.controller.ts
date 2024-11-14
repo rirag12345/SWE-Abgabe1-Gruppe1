@@ -40,6 +40,7 @@ import {
     ApiTags,
 } from '@nestjs/swagger';
 import { Request, Response } from 'express';
+import { Public } from 'nest-keycloak-connect';
 import { paths } from '../../config/paths.js';
 import { getLogger } from '../../logger/logger.js';
 import { ResponseTimeInterceptor } from '../../logger/response-time.interceptor.js';
@@ -111,6 +112,7 @@ export class UniversitaetGetController {
     }
 
     @Get()
+    @Public()
     @ApiOperation({ summary: 'Suche aller Universitäten' })
     @ApiOkResponse({
         description: 'Eine evtl. leeres Json Array mit Universitäten',
@@ -138,6 +140,7 @@ export class UniversitaetGetController {
     }
 
     @Get(':id')
+    @Public()
     @ApiOperation({ summary: `Suche mit id` })
     @ApiParam({
         name: 'id',

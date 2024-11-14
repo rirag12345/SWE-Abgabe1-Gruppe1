@@ -14,10 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-// TODO security implementieren, wenn verfügbar
 import { UseFilters, UseInterceptors } from '@nestjs/common';
 import { Args, Query, Resolver } from '@nestjs/graphql';
-// import { Public } from 'nest-keycloak-connect';
+import { Public } from 'nest-keycloak-connect';
 import { getLogger } from '../../logger/logger.js';
 import { ResponseTimeInterceptor } from '../../logger/response-time.interceptor.js';
 import { UniversitaetReadService } from '../service/universitaet-read.service.js';
@@ -40,7 +39,7 @@ export class UniversitaetQueryResolver {
     }
 
     @Query('universitaet')
-    // @Public()
+    @Public()
     async findById(@Args() { id }: IdInput) {
         this.#logger.debug('findById: id=%d', id);
 
@@ -57,7 +56,7 @@ export class UniversitaetQueryResolver {
     }
 
     @Query('universitaeten')
-    // @Public()
+    @Public()
     async find() {
         this.#logger.debug('find: findAll');
         const universitaeten = await this.#service.findAll();

@@ -17,7 +17,6 @@
 /* eslint-disable @eslint-community/eslint-comments/disable-enable-pair */
 /* eslint-disable max-lines-per-function */
 
-// FIXME graphQL fehler beheben
 import { type GraphQLRequest } from '@apollo/server';
 import { afterAll, beforeAll, describe, expect, test } from '@jest/globals';
 import { HttpStatus } from '@nestjs/common';
@@ -29,7 +28,7 @@ import {
     shutdownServer,
     startServer,
 } from '../testserver.js';
-// import { tokenGraphQL } from '../token.js';
+import { tokenGraphQL } from '../token.js';
 import { type GraphQLResponseBody } from './universitaet-query.resolver.test.js';
 
 export type GraphQLQuery = Pick<GraphQLRequest, 'query'>;
@@ -58,6 +57,9 @@ describe('GraphQL Mutations', () => {
     // -------------------------------------------------------------------------
     test('Neue Universität', async () => {
         // given
+        const token = await tokenGraphQL(client);
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        const authorization = { Authorization: `Bearer ${token}` };
         const body: GraphQLQuery = {
             query: `
                 mutation {
@@ -94,7 +96,7 @@ describe('GraphQL Mutations', () => {
 
         // when
         const { status, headers, data }: AxiosResponse<GraphQLResponseBody> =
-            await client.post(graphqlPath, body);
+            await client.post(graphqlPath, body, { headers: authorization });
 
         // then
         expect(status).toBe(HttpStatus.OK);

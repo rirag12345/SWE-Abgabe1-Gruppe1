@@ -1,5 +1,6 @@
 // Copyright (C) 2016 - present Juergen Zimmermann, Hochschule Karlsruhe
 // Copyright (C) 2024 - present Philip Neuffer
+// Copyright (C) 2024 - present Felix Jaeger
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -73,9 +74,8 @@ describe('GET /rest/:id', () => {
         // eslint-disable-next-line no-underscore-dangle
         const selfLink = data._links.self.href;
 
-        // https://jestjs.io/docs/next/snapshot-testing
-        // https://medium.com/swlh/easy-integration-testing-of-graphql-apis-with-jest-63288d0ad8d7
-        expect(selfLink).toMatchSnapshot();
+        // eslint-disable-next-line security-node/non-literal-reg-expr
+        expect(selfLink).toMatch(new RegExp(`${url}$`, 'u'));
     });
 
     test(`Keine Universitaet zu nicht vorhandener Id`, async () => {
@@ -86,12 +86,14 @@ describe('GET /rest/:id', () => {
         const { status, data }: AxiosResponse<ErrorResponse> =
             await client.get(url);
 
-        const { error, message } = data;
-
         // then
+        expect(status).toBe(HttpStatus.NOT_FOUND);
+
+        const { error, message, statusCode } = data;
+
         expect(error).toBe(`Not Found`);
         expect(message).toEqual(expect.stringContaining(message));
-        expect(status).toBe(HttpStatus.NOT_FOUND);
+        expect(statusCode).toBe(HttpStatus.NOT_FOUND);
     });
 
     test(`Keine Universitaet zu falscher Id`, async () => {
@@ -102,10 +104,13 @@ describe('GET /rest/:id', () => {
         const { status, data }: AxiosResponse<ErrorResponse> =
             await client.get(url);
 
-        const { error } = data;
+        // then
+        expect(status).toBe(HttpStatus.NOT_FOUND);
+
+        const { error, statusCode } = data;
 
         expect(error).toBe(`Not Found`);
-        expect(status).toBe(HttpStatus.NOT_FOUND);
+        expect(statusCode).toBe(HttpStatus.NOT_FOUND);
     });
 
     test('Universitaet zu vorhandener ID mit ETag', async () => {
