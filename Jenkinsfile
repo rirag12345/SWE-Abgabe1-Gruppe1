@@ -76,7 +76,7 @@ pipeline {
 
                 // https://www.jenkins.io/doc/pipeline/steps/git
                 // "named arguments" statt Funktionsaufruf mit Klammern
-                git url: 'https://github.com/juergenzimmermann/buch', branch: 'main', poll: true
+                git url: 'https://github.com/rirag12345/SWE-Abgabe1-Gruppe1', branch: 'minimalist-entites', poll: true
             }
         }
 
