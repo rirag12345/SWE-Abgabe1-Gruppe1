@@ -76,7 +76,7 @@ pipeline {
 
                 // https://www.jenkins.io/doc/pipeline/steps/git
                 // "named arguments" statt Funktionsaufruf mit Klammern
-                git url: 'https://github.com/juergenzimmermann/buch', branch: 'main', poll: true
+                git url: 'https://github.com/rirag12345/SWE-Abgabe1-Gruppe1', branch: 'master', poll: true
             }
         }
 
@@ -143,7 +143,6 @@ pipeline {
         stage('Compile') {
             steps {
                 sh 'npx tsc --version'
-                // TODO Warum funktioniert npx nicht?
                 sh './node_modules/.bin/tsc'
             }
         }
@@ -212,14 +211,14 @@ pipeline {
 
                 success {
                     script {
-                        if (fileExists("${env.WORKSPACE}/buch.zip")) {
-                            sh 'rm buch.zip'
+                        if (fileExists("${env.WORKSPACE}/universitaet.zip")) {
+                            sh 'rm universitaet.zip'
                         }
                     }
                     // https://www.jenkins.io/doc/pipeline/steps/pipeline-utility-steps/#zip-create-zip-file
-                    zip zipFile: 'buch.zip', archive: false, dir: 'dist'
+                    zip zipFile: 'universitaet.zip', archive: false, dir: 'dist'
                     // jobs/buch/builds/.../archive/buch.zip
-                    archiveArtifacts 'buch.zip'
+                    archiveArtifacts 'universitaet.zip'
                 }
             }
         }
@@ -227,7 +226,7 @@ pipeline {
         stage('Docker Image bauen') {
             steps {
                 echo 'TODO: Docker-Image bauen und veroeffentlichen'
-                // sh 'docker buildx build --tag juergenzimmermann/buch:2024.10.1 .'
+                // sh 'docker buildx build --tag juergenzimmermann/universitaet:2024.10.1-alpine .'
             }
         }
 

@@ -1,6 +1,7 @@
 # syntax=docker/dockerfile:1.10.0
 
-# Copyright (C) 2023 - present, Juergen Zimmermann, Hochschule Karlsruhe
+# Copyright (C) 2023 - present Juergen Zimmermann, Hochschule Karlsruhe
+# Copyright (C) 2024 - present Felix Jaeger
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,12 +16,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-# Aufruf:   docker build --tag juergenzimmermann/buch:2024.10.1-bookworm .
+# Aufruf:   docker build --tag juergenzimmermann/universitaet:2024.10.1-bookworm .
 #               ggf. --progress=plain
 #               ggf. --no-cache
 #           Get-Content Dockerfile | docker run --rm --interactive hadolint/hadolint:2.12.1-beta-debian
 #               Linux:   cat Dockerfile | docker run --rm --interactive hadolint/hadolint:2.12.1-beta-debian
 #           docker network ls
+
+# Bei Fehler: bin/sh: illegal option -
+# https://stackoverflow.com/questions/69055765/how-to-fix-illegal-option-error-when-compiling-a-dockerfile
 
 # https://docs.docker.com/engine/reference/builder/#syntax
 # https://github.com/moby/buildkit/blob/master/frontend/dockerfile/docs/reference.md
@@ -120,8 +124,8 @@ FROM node:${NODE_VERSION}-bookworm-slim AS final
 # https://specs.opencontainers.org/image-spec/annotations
 # https://spdx.org/licenses
 # MAINTAINER ist deprecated https://docs.docker.com/engine/reference/builder/#maintainer-deprecated
-LABEL org.opencontainers.image.title="buch" \
-    org.opencontainers.image.description="Appserver buch mit Basis-Image Debian Bookworm" \
+LABEL org.opencontainers.image.title="universitaet" \
+    org.opencontainers.image.description="Appserver universitaet mit Basis-Image Debian Bookworm" \
     org.opencontainers.image.version="2024.10.1-bookworm" \
     org.opencontainers.image.licenses="GPL-3.0-or-later" \
     org.opencontainers.image.authors="Juergen.Zimmermann@h-ka.de"

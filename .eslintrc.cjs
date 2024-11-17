@@ -112,7 +112,7 @@ module.exports = {
         // https://github.com/typescript-eslint/typescript-eslint/tree/main/packages/eslint-plugin/docs/rules
         // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/recommended-type-checked.ts
         // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/src/configs/stylistic-type-checked.ts
-        '@typescript-eslint/array-type': ['error', { default: 'array'}],
+        '@typescript-eslint/array-type': ['error', { default: 'array' }],
         '@typescript-eslint/ban-ts-comment': 'error',
         '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
         '@typescript-eslint/consistent-type-exports': 'error',
@@ -155,58 +155,86 @@ module.exports = {
                 format: ['PascalCase'],
             },
         ],
-        '@typescript-eslint/no-base-to-string': ['error', {
-            ignoredTypeNames: ['RegExp', 'boolean']
-        }],
-        '@typescript-eslint/no-confusing-void-expression': ['error', {
-            ignoreArrowShorthand: true
-        }],
+        '@typescript-eslint/no-base-to-string': [
+            'error',
+            {
+                ignoredTypeNames: ['RegExp', 'boolean'],
+            },
+        ],
+        '@typescript-eslint/no-confusing-void-expression': [
+            'error',
+            {
+                ignoreArrowShorthand: true,
+            },
+        ],
         '@typescript-eslint/no-deprecated': 'error',
         '@typescript-eslint/no-dupe-class-members': 'error',
         '@typescript-eslint/no-dynamic-delete': 'error',
-        '@typescript-eslint/no-empty-function': ['error', {
-            allow: ['arrowFunctions'],
-        }],
+        '@typescript-eslint/no-empty-function': [
+            'error',
+            {
+                allow: ['arrowFunctions'],
+            },
+        ],
         '@typescript-eslint/no-explicit-any': 'off',
-        '@typescript-eslint/no-floating-promises': ['error', {
-            ignoreIIFE: true
-        }],
+        '@typescript-eslint/no-floating-promises': [
+            'error',
+            {
+                ignoreIIFE: true,
+            },
+        ],
         '@typescript-eslint/no-invalid-this': 'error',
         '@typescript-eslint/no-invalid-void-type': 'error',
         '@typescript-eslint/no-loop-func': 'error',
-        '@typescript-eslint/no-magic-numbers': ['error', {
-            ignoreReadonlyClassProperties: true,
-            ignoreArrayIndexes: true,
-            enforceConst: true,
-            ignore: [0, 1, -1],
-        }],
+        '@typescript-eslint/no-magic-numbers': [
+            'error',
+            {
+                ignoreReadonlyClassProperties: true,
+                ignoreArrayIndexes: true,
+                enforceConst: true,
+                ignore: [0, 1, -1],
+            },
+        ],
         '@typescript-eslint/no-meaningless-void-operator': 'error',
-        '@typescript-eslint/no-misused-promises': ['error', {
-            checksVoidReturn: false,
-        }],
+        '@typescript-eslint/no-misused-promises': [
+            'error',
+            {
+                checksVoidReturn: false,
+            },
+        ],
         '@typescript-eslint/no-mixed-enums': 'error',
         '@typescript-eslint/no-non-null-asserted-nullish-coalescing': 'error',
         '@typescript-eslint/no-require-imports': 'error',
         '@typescript-eslint/no-shadow': 'error',
         '@typescript-eslint/no-unnecessary-boolean-literal-compare': 'error',
-        '@typescript-eslint/no-unnecessary-condition': ['error', {
-            allowRuleToRunWithoutStrictNullChecksIKnowWhatIAmDoing: true,
-        }],
-        '@typescript-eslint/no-unnecessary-parameter-property-assignment': 'error',
+        '@typescript-eslint/no-unnecessary-condition': [
+            'error',
+            {
+                allowRuleToRunWithoutStrictNullChecksIKnowWhatIAmDoing: true,
+            },
+        ],
+        '@typescript-eslint/no-unnecessary-parameter-property-assignment':
+            'error',
         '@typescript-eslint/no-unnecessary-qualifier': 'error',
         '@typescript-eslint/no-unnecessary-type-arguments': 'error',
         '@typescript-eslint/no-unnecessary-type-parameters': 'error',
         '@typescript-eslint/no-unsafe-member-access': 'off',
         '@typescript-eslint/no-unsafe-unary-minus': 'error',
         //'@typescript-eslint/no-untyped-public-signature': 'error',
-        '@typescript-eslint/no-unused-vars': ['off', {
-            ignoreRestSiblings: true,
-        }],
-        '@typescript-eslint/no-use-before-define': ['error', {
-            functions: false,
-            classes: false,
-            typedefs: false,
-        }],
+        '@typescript-eslint/no-unused-vars': [
+            'off',
+            {
+                ignoreRestSiblings: true,
+            },
+        ],
+        '@typescript-eslint/no-use-before-define': [
+            'error',
+            {
+                functions: false,
+                classes: false,
+                typedefs: false,
+            },
+        ],
         '@typescript-eslint/no-useless-constructor': 'error',
         '@typescript-eslint/no-useless-empty-export': 'error',
         //'@typescript-eslint/no-useless-template-expression': 'error',
@@ -225,23 +253,35 @@ module.exports = {
         '@typescript-eslint/prefer-regexp-exec': 'error',
         '@typescript-eslint/prefer-return-this-type': 'error',
         '@typescript-eslint/require-array-sort-compare': 'error',
-        '@typescript-eslint/restrict-plus-operands': ['error', {
-            skipCompoundAssignments: false,
-        }],
-        '@typescript-eslint/restrict-template-expressions': ['error', {
-            allowNumber: true,
-            allowBoolean: true,
-            allowNullish: true,
-        }],
+        '@typescript-eslint/restrict-plus-operands': [
+            'error',
+            {
+                skipCompoundAssignments: false,
+            },
+        ],
+        '@typescript-eslint/restrict-template-expressions': [
+            'error',
+            {
+                allowNumber: true,
+                allowBoolean: true,
+                allowNullish: true,
+            },
+        ],
         '@typescript-eslint/return-await': 'error',
         '@typescript-eslint/strict-boolean-expressions': 'error',
-        '@typescript-eslint/switch-exhaustiveness-check': ['error', {
-            allowDefaultCaseForExhaustiveSwitch: false,
-            requireDefaultForNonUnion: true,
-        }],
-        '@typescript-eslint/unbound-method': ['error', {
-            ignoreStatic: true,
-        }],
+        '@typescript-eslint/switch-exhaustiveness-check': [
+            'error',
+            {
+                allowDefaultCaseForExhaustiveSwitch: false,
+                requireDefaultForNonUnion: true,
+            },
+        ],
+        '@typescript-eslint/unbound-method': [
+            'error',
+            {
+                ignoreStatic: true,
+            },
+        ],
         '@typescript-eslint/unified-signatures': 'error',
 
         // https://github.com/jest-community/eslint-plugin-jest/blob/main/src/index.ts
@@ -280,9 +320,12 @@ module.exports = {
         'n/no-path-concat': 'error',
         'n/no-process-env': 'error',
         'n/no-process-exit': 'error',
-        'n/no-sync': ['error', {
-            allowAtRootLevel: true,
-        }],
+        'n/no-sync': [
+            'error',
+            {
+                allowAtRootLevel: true,
+            },
+        ],
         'n/prefer-global/buffer': 'error',
         'n/prefer-global/console': 'error',
         'n/prefer-global/process': ['error', 'never'],
@@ -293,9 +336,12 @@ module.exports = {
         'n/prefer-promises/dns': 'error',
         'n/prefer-promises/fs': 'error',
 
-        'prefer-arrow/prefer-arrow-functions': ['error', {
-            classPropertiesAllowed: false,
-        }],
+        'prefer-arrow/prefer-arrow-functions': [
+            'error',
+            {
+                classPropertiesAllowed: false,
+            },
+        ],
 
         'promise/no-multiple-resolved': 'error',
 
@@ -305,9 +351,12 @@ module.exports = {
         'regexp/prefer-regexp-exec': 'error',
 
         // https://github.com/sindresorhus/eslint-plugin-unicorn/blob/main/configs/recommended.js
-        'unicorn/catch-error-name': ['error', {
-            name: 'err'
-        }],
+        'unicorn/catch-error-name': [
+            'error',
+            {
+                name: 'err',
+            },
+        ],
         'unicorn/consistent-function-scoping': 'error',
         'unicorn/custom-error-definition': 'error',
         'unicorn/filename-case': 'off',
@@ -336,16 +385,16 @@ module.exports = {
         // https://eslint.org/docs/rules/arrow-body-style
         'arrow-body-style': ['error', 'as-needed'],
         'block-scoped-var': 'error',
-        'camelcase': 'error',
+        camelcase: 'error',
         'consistent-this': 'error',
         // https://github.com/prettier/eslint-config-prettier#curly
         // https://eslint.org/docs/rules/curly
-        'curly': ['error', 'all'],
+        curly: ['error', 'all'],
         'default-case-last': 'error',
         'default-param-last': 'error',
         // siehe @typescript-eslint/dot-notation
         'dot-notation': 'off',
-        'eqeqeq': 'error',
+        eqeqeq: 'error',
         'for-direction': 'error',
         'func-name-matching': 'error',
         'func-names': ['error', 'never'],
@@ -357,16 +406,30 @@ module.exports = {
         'max-classes-per-file': 'error',
         'max-depth': 'error',
         'max-lines': 'error',
-        'max-lines-per-function': ['error', {
-            max: 60,
-        }],
-        'max-nested-callbacks': ['error', {
-            max: 4,
-        }],
-        'max-params': 'error',
-        'max-statements': ['error', {
-            max: 25
-        }],
+        'max-lines-per-function': [
+            'error',
+            {
+                max: 60,
+            },
+        ],
+        'max-nested-callbacks': [
+            'error',
+            {
+                max: 4,
+            },
+        ],
+        'max-params': [
+            'error',
+            {
+                max: 4,
+            },
+        ],
+        'max-statements': [
+            'error',
+            {
+                max: 25,
+            },
+        ],
         'no-alert': 'error',
         'no-array-constructor': 'error',
         'no-bitwise': 'error',
@@ -439,10 +502,13 @@ module.exports = {
         'no-unused-private-class-members': 'error',
         // siehe @typescript-eslint/no-unused-vars
         'no-unused-vars': 'off',
-        'no-use-before-define': ['error', {
-            functions: false,
-            classes: false,
-        }],
+        'no-use-before-define': [
+            'error',
+            {
+                functions: false,
+                classes: false,
+            },
+        ],
         'no-useless-call': 'error',
         'no-useless-catch': 'error',
         'no-useless-computed-key': 'error',
@@ -461,20 +527,23 @@ module.exports = {
         'prefer-object-has-own': 'error',
         'prefer-object-spread': 'error',
         'prefer-promise-reject-errors': 'error',
-        'prefer-regex-literals': ['error', {
-            disallowRedundantWrapping: true,
-        }],
+        'prefer-regex-literals': [
+            'error',
+            {
+                disallowRedundantWrapping: true,
+            },
+        ],
         'prefer-rest-params': 'error',
         'prefer-template': 'error',
-        'radix': 'error',
+        radix: 'error',
         'require-atomic-updates': 'error',
         // siehe @typescript-eslint/require-await
         'require-await': 'off',
         'require-unicode-regexp': 'error',
         // 'sort-imports': 'error',
-        'strict': 'error',
+        strict: 'error',
         'symbol-description': 'error',
-        'yoda': ['error', 'never'],
+        yoda: ['error', 'never'],
 
         // https://eslint.style/rules
         // https://github.com/eslint-stylistic/eslint-stylistic/blob/main/packages/eslint-plugin/configs/customize.ts
@@ -484,9 +553,12 @@ module.exports = {
         '@stylistic/curly-newline': 'error',
         '@stylistic/indent': 'off',
         '@stylistic/indent-binary-ops': 'off',
-        '@stylistic/member-delimiter-style': ['error', {
-            multiline: { delimiter: 'semi' },
-        }],
+        '@stylistic/member-delimiter-style': [
+            'error',
+            {
+                multiline: { delimiter: 'semi' },
+            },
+        ],
         '@stylistic/multiline-comment-style': ['error', 'separate-lines'],
         '@stylistic/operator-linebreak': 'off',
         '@stylistic/quote-props': ['error', 'as-needed'],
