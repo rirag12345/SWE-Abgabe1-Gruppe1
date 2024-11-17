@@ -1,6 +1,6 @@
 // STRG-SHIFT-V
 = Projekthandbuch
-Philip Neuffer <neph1015@h-ka.de> , Felix Jäger <jafe1011@h-ka.de>,Yannis Mechnich <meya1019@h-ka.de>,Botan Coban <cobo1011@h-ka.de>
+Philip Neuffer <neph1015@h-ka.de> , Felix Jäger <jafe1011@h-ka.de>, Yannis Mechnich <meya1019@h-ka.de>, Botan Coban <cobo1011@h-ka.de>
 :doctype: book
 :toc: left
 :sectanchors:
@@ -14,15 +14,11 @@ Philip Neuffer <neph1015@h-ka.de> , Felix Jäger <jafe1011@h-ka.de>,Yannis Mechn
 
 === Der Applikationsserver im Überblick
 
-Sed porttitor lectus nibh. Nulla porttitor accumsan tincidunt.
+Der Applikationsserver stellt die zentrale Komponente der Anwendung dar, die die Kommunikation zwischen Benutzeroberfläche, Geschäftslogik und Datenhaltung steuert.
 
 === Die REST-Schnittstelle
 
-Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia
-Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet
-ligula. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere
-cubilia Curae; Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit
-amet ligula.
+Eine **REST-Schnittstelle** (Representational State Transfer) ermöglicht die Kommunikation zwischen Client und Server über HTTP. Sie basiert auf den Methoden GET, POST, PUT und DELETE, um Daten zu lesen, zu erstellen, zu aktualisieren oder zu löschen. REST ist ressourcenbasiert und liefert Daten meist im JSON- oder XML-Format.
 
 ."UniversitaetGetController" für Lesezugriffe an der REST-Schnittstelle
 [plantuml,UniversitaetGetController,svg]
@@ -30,30 +26,21 @@ amet ligula.
 include::UniversitaetGetController.plantuml[]
 ----
 
-Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Donec
-sollicitudin molestie malesuada.
-
 ."Sequenzdiagramm" mit den Methodenaufrufen
 [plantuml,sequenzdiagramm,svg]
 ----
 include::sequenzdiagramm.plantuml[]
 ----
 
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-tempor invidunt ut.
-
 ."UniversitaetWriteController" für Schreibzugriffe an der REST-Schnittstelle
-[plantuml,UniversitaetGetController,svg]
+[plantuml,UniversitaetWriteController,svg]
 ----
 include::UniversitaetWriteController.plantuml[]
 ----
 
-Donec sollicitudin molestie malesuada. Praesent sapien massa, convallis a
-pellentesque nec, egestas non nisi.
-
 === Die Geschäftslogik
 
-Donec rutrum congue leo eget malesuada. Donec rutrum congue leo eget malesuada.
+Die **Geschäftslogik** enthält die Regeln und Prozesse, die den Kern der Anwendung ausmachen. Sie verarbeitet Daten und führt Operationen durch, die für die spezifischen Anwendungsfälle wichtig sind. Sie ist unabhängig von der Benutzeroberfläche oder der Datenhaltung.
 
 ."UniversitaetReadService" von der Geschäftslogik
 [plantuml,UniversitaetReadService,svg]
@@ -61,8 +48,7 @@ Donec rutrum congue leo eget malesuada. Donec rutrum congue leo eget malesuada.
 include::UniversitaetReadService.plantuml[]
 ----
 
-Pellentesque in ipsum id orci porta dapibus. Donec rutrum congue leo eget
-malesuada.
+Pellentesque in ipsum id orci porta dapibus. Donec rutrum congue leo eget malesuada.
 
 ."UniversitaetWriteService" von der Geschäftslogik
 [plantuml,UniversitaetWriteService,svg]
@@ -72,8 +58,7 @@ include::UniversitaetWriteService.plantuml[]
 
 === Klasse für Entities
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur arcu erat,
-accumsan id imperdiet et, porttitor at sem.
+Eine **Entity-Klasse** repräsentiert ein Datenobjekt in der Anwendung. Sie wird verwendet, um die Struktur und die Eigenschaften von Daten abzubilden, die in einer Datenbank gespeichert oder zwischen Systemen übertragen werden.
 
 .Entity
 [plantuml,Universitaet,svg]
@@ -83,7 +68,7 @@ include::Universitaet.plantuml[]
 
 === ER-Diagramm
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Ein **ER-Diagramm** (Entity-Relationship-Diagramm) stellt die Datenstruktur einer Anwendung grafisch dar. Es zeigt Entitäten, deren Attribute und die Beziehungen zwischen den Entitäten. Es dient als Grundlage für das Design von Datenbanken.
 
 .ER-Diagramm
 [plantuml,ER-Diagramm,svg]
@@ -93,8 +78,7 @@ include::ER-Diagramm.plantuml[]
 
 == Programmierrichtlinien für TypeScript und JavaScript
 
-Für die Programmierung mit *TypeScript* und *JavaScript* sind folgende
-Styleguides empfehlenswert:
+Für die Programmierung mit *TypeScript* und *JavaScript* sind folgende Styleguides empfehlenswert:
 
 [horizontal]
 _E-Book zu TypeScript_:: https://github.com/gibbok/typescript-book
@@ -105,9 +89,4 @@ _React bei Airbnb_:: https://github.com/airbnb/javascript/tree/master/react
 _Angular_:: https://angular.io/docs/ts/latest/guide/style-guide.html
 _Microsoft_:: https://github.com/Microsoft/TypeScript/wiki/Coding-guidelines
 
-Von IBM und Red Hat gibt es bei GitHub _Node.js Reference Architecture_
-https://github.com/nodeshift/nodejs-reference-architecture, wo alle möglichen
-Aspekte bei der Softwareentwicklung mit Node berücksichtigt sind und
-entsprechende Empfehlungen bzw. Best Practices beschrieben sind.
-Diese Dokumentation muss man einfach gelesen haben. Ebenfalls empfehlenswert
-ist https://github.com/goldbergyoni/nodebestpractices.
+Von IBM und Red Hat gibt es bei GitHub _Node.js Reference Architecture_ https://github.com/nodeshift/nodejs-reference-architecture, wo alle möglichen Aspekte bei der Softwareentwicklung mit Node berücksichtigt sind und entsprechende Empfehlungen bzw. Best Practices beschrieben sind. Diese Dokumentation muss man einfach gelesen haben. Ebenfalls empfehlenswert ist https://github.com/goldbergyoni/nodebestpractices.
