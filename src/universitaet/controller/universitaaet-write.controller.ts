@@ -20,15 +20,19 @@ import {
     Post,
     Req,
     Res,
+    UseGuards,
     UseInterceptors,
 } from '@nestjs/common';
 import {
     ApiBadRequestResponse,
+    ApiBearerAuth,
     ApiCreatedResponse,
+    ApiForbiddenResponse,
     ApiOperation,
     ApiTags,
 } from '@nestjs/swagger';
 import { Request, Response } from 'express';
+import { AuthGuard, Roles } from 'nest-keycloak-connect';
 import { paths } from '../../config/paths.js';
 import { getLogger } from '../../logger/logger.js';
 import { ResponseTimeInterceptor } from '../../logger/response-time.interceptor.js';
@@ -39,9 +43,16 @@ import { UniversitaetWriteService } from '../service/universitaet-write.service.
 import { getBaseUri } from './getBaseUri.js';
 import { UniversitaetDTO } from './universitaetDTO.entity.js';
 
+const MSG_FORBIDDEN = 'Kein Token mit ausreichender Berechtigung vorhanden';
+
+/**
+ * Controller für die REST-API zum Anlegen von Universitäten.
+ */
 @Controller(paths.rest)
+@UseGuards(AuthGuard)
 @UseInterceptors(ResponseTimeInterceptor)
 @ApiTags('Universitaet REST-API')
+@ApiBearerAuth()
 export class UniversitaetWriteController {
     readonly #service: UniversitaetWriteService;
 
@@ -59,9 +70,11 @@ export class UniversitaetWriteController {
      * @returns Leeres Promise-Objekt.
      */
     @Post()
+    @Roles({ roles: ['admin', 'user'] })
     @ApiOperation({ summary: 'Eine neue Universität anlegen' })
     @ApiCreatedResponse({ description: 'Erfolgreich neu angelegt' })
     @ApiBadRequestResponse({ description: 'Fehlerhafte Universitätsdaten' })
+    @ApiForbiddenResponse({ description: MSG_FORBIDDEN })
     async post(
         @Body() universtitaetDTO: UniversitaetDTO,
         @Req() req: Request,
