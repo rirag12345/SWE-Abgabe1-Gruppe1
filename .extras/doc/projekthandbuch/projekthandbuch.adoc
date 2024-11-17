@@ -14,11 +14,11 @@ Philip Neuffer <neph1015@h-ka.de> , Felix Jäger <jafe1011@h-ka.de>, Yannis Mech
 
 === Der Applikationsserver im Überblick
 
-Der Applikationsserver stellt die zentrale Komponente der Anwendung dar, die die Kommunikation zwischen Benutzeroberfläche, Geschäftslogik und Datenhaltung steuert.
+Der Applikationsserver stellt die zentrale Komponente der Anwendung dar, die die Kommunikation zwischen Benutzeroberfläche, Geschäftslogik und Datenhaltung steuert. Der Server ist in TypeScript mit dem NestJS-Framework implementiert.
 
 === Die REST-Schnittstelle
 
-Eine **REST-Schnittstelle** (Representational State Transfer) ermöglicht die Kommunikation zwischen Client und Server über HTTP. Sie basiert auf den Methoden GET, POST, PUT und DELETE, um Daten zu lesen, zu erstellen, zu aktualisieren oder zu löschen. REST ist ressourcenbasiert und liefert Daten meist im JSON- oder XML-Format.
+Eine **REST-Schnittstelle** (Representational State Transfer) ermöglicht die Kommunikation zwischen Client und Server über HTTP. Die Schnittstelle liefert Daten im JSON-Format.
 
 ."UniversitaetGetController" für Lesezugriffe an der REST-Schnittstelle
 [plantuml,UniversitaetGetController,svg]
@@ -47,8 +47,6 @@ Die **Geschäftslogik** enthält die Regeln und Prozesse, die den Kern der Anwen
 ----
 include::UniversitaetReadService.plantuml[]
 ----
-
-Pellentesque in ipsum id orci porta dapibus. Donec rutrum congue leo eget malesuada.
 
 ."UniversitaetWriteService" von der Geschäftslogik
 [plantuml,UniversitaetWriteService,svg]
