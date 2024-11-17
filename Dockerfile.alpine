@@ -1,6 +1,7 @@
 # syntax=docker/dockerfile:1.10.0
 
-# Copyright (C) 2024 - present, Juergen Zimmermann, Hochschule Karlsruhe
+# Copyright (C) 2024 - present Juergen Zimmermann, Hochschule Karlsruhe
+# Copyright (C) 2024 - present Felix Jaeger
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,6 +22,9 @@
 #           Get-Content Dockerfile.alpine | docker run --rm --interactive hadolint/hadolint:2.12.1-beta-debian
 #               Linux:   cat Dockerfile.alpine | docker run --rm --interactive hadolint/hadolint:2.12.1-beta-debian
 #           docker network ls
+
+# Bei Fehler: bin/sh: illegal option -
+# https://stackoverflow.com/questions/69055765/how-to-fix-illegal-option-error-when-compiling-a-dockerfile
 
 # https://docs.docker.com/engine/reference/builder/#syntax
 # https://github.com/moby/buildkit/blob/master/frontend/dockerfile/docs/reference.md

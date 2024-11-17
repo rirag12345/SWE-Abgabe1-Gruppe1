@@ -1,6 +1,7 @@
 # syntax=docker/dockerfile:1.10.0
 
 # Copyright (C) 2022 - present Juergen Zimmermann, Hochschule Karlsruhe
+# Copyright (C) 2024 - present Felix Jaeger
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,6 +22,9 @@
 #               cat /etc/os-release
 #                   ID=debian
 #                   VERSION="12 (bookworm)"
+
+# Bei Fehler: bin/sh: illegal option -
+# https://stackoverflow.com/questions/69055765/how-to-fix-illegal-option-error-when-compiling-a-dockerfile
 
 # https://www.jenkins.io/doc/tutorials/build-a-node-js-and-react-app-with-npm
 # https://www.jenkins.io/doc/book/installing/docker
