@@ -76,7 +76,7 @@ pipeline {
 
                 // https://www.jenkins.io/doc/pipeline/steps/git
                 // "named arguments" statt Funktionsaufruf mit Klammern
-                git url: 'https://github.com/rirag12345/SWE-Abgabe1-Gruppe1', branch: 'minimalist-entites', poll: true
+                git url: 'https://github.com/rirag12345/SWE-Abgabe1-Gruppe1', branch: 'master', poll: true
             }
         }
 
@@ -226,7 +226,7 @@ pipeline {
         stage('Docker Image bauen') {
             steps {
                 echo 'TODO: Docker-Image bauen und veroeffentlichen'
-                // sh 'docker buildx build --tag juergenzimmermann/universitaet:2024.10.1 .'
+                // sh 'docker buildx build --tag juergenzimmermann/universitaet:2024.10.1-alpine .'
             }
         }
 
