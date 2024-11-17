@@ -36,10 +36,10 @@ db:
   #host: mysql
   #host: oracle
 
-  #username: buch
-  #password: p
-  #passwordAdmin: p
-  #name: buch
+  username: universitaet
+  password: p
+  passwordAdmin: p
+  name: universitaet
   populate: true
 
 # ==============================================================================
